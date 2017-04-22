@@ -1,9 +1,12 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 
-import World from './world'
+import RotationControls from './RotationControls'
+import World from './World'
 
 ReactDOM.render(
-  <World />,
+  <RotationControls>
+    <World />
+  </RotationControls>,
   document.getElementById('app')
 )
