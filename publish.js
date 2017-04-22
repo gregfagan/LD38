@@ -4,6 +4,7 @@ const child_process = require('child_process')
 child_process.exec('git status -s', {}, (error, stdout, stderr) => {
   if (error) {
     console.log(error, stderr)
+    return
   }
 
   if (stdout.length !== 0) {
