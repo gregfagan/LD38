@@ -38,6 +38,8 @@
   },
   "dependencies": {
     "react": "^15.5.4",
-    "react-dom": "^15.5.4"
+    "react-dom": "^15.5.4",
+    "react-three-renderer": "^3.1.0",
+    "three": "^0.85.0"
   }
 }
