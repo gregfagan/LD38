@@ -33,4 +33,4 @@ if (process.env.NODE_ENV !== 'production') {
   config.devtool = 'source-map'
 }
 
-export default config;
+export default config
