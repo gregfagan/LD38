@@ -1,0 +1,21 @@
+{
+  "name": "ld38",
+  "version": "0.0.1",
+  "description": "Ludum Dare Jam 38 game",
+  "main": "src/index.js",
+  "scripts": {
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gregfagan/ld38.git"
+  },
+  "contributors": [
+    { "name": "Greg Fagan" },
+    { "name": "Kyle Fagan" }
+  ],
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gregfagan/ld38/issues"
+  },
+  "homepage": "https://github.com/gregfagan/ld38#readme"
+}
