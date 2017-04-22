@@ -4,18 +4,39 @@
   "description": "Ludum Dare Jam 38 game",
   "main": "src/index.js",
   "scripts": {
+    "start": "webpack-dev-server",
+    "build": "webpack -p"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/gregfagan/ld38.git"
   },
   "contributors": [
-    { "name": "Greg Fagan" },
-    { "name": "Kyle Fagan" }
+    {
+      "name": "Greg Fagan"
+    },
+    {
+      "name": "Kyle Fagan"
+    }
   ],
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/gregfagan/ld38/issues"
   },
-  "homepage": "https://github.com/gregfagan/ld38#readme"
+  "homepage": "https://github.com/gregfagan/ld38#readme",
+  "devDependencies": {
+    "babel-core": "^6.24.1",
+    "babel-loader": "^7.0.0",
+    "babel-plugin-transform-object-rest-spread": "^6.23.0",
+    "babel-preset-env": "^1.4.0",
+    "babel-preset-react": "^6.24.1",
+    "babel-register": "^6.24.1",
+    "html-webpack-plugin": "^2.28.0",
+    "webpack": "^2.4.1",
+    "webpack-dev-server": "^2.4.2"
+  },
+  "dependencies": {
+    "react": "^15.5.4",
+    "react-dom": "^15.5.4"
+  }
 }
