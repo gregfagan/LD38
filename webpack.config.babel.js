@@ -1,12 +1,12 @@
 import path from 'path'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
 
-export default {
+const config = {
   entry: './src/index.js',
   output: {
     path: path.resolve(__dirname, 'build'),
     filename: 'bundle.js',
-    publicPath: '/',
+    publicPath: '/LD38',
   },
   module: {
     rules: [
@@ -27,5 +27,10 @@ export default {
       template: 'template.ejs',
     })
   ],
-  devtool: 'source-map',
 }
+
+if (process.env.NODE_ENV !== 'production') {
+  config.devtool = 'source-map'
+}
+
+export default config;
