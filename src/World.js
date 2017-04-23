@@ -6,9 +6,10 @@ import * as three from 'three'
 const phi = (1 + Math.sqrt(5)) / 2
 const dihedral = 2 * Math.atan(phi)
 const dihedralComplement = (Math.PI) - dihedral
+const outerAngle = 36 * Math.PI / 180
 
-function toRadians(degrees) {
-  return degrees * Math.PI / 180
+function orient(d, c, o) {
+  return d * dihedral + c * dihedralComplement + o * outerAngle
 }
 
 function generateUVs() {
@@ -114,13 +115,15 @@ export default class World extends React.Component {
 
     const {
       children,
-      x_dihedral, y_dihedral, z_dihedral, x_complement, y_complement, z_complement
+      x_dihedral=0.5, x_complement=0, x_outer=0,
+      y_dihedral=0, y_complement=0, y_outer=0,
+      z_dihedral=0, z_complement=0, z_outer=-3
     } = this.props
 
     const rotation = new three.Euler(
-      dihedral * x_dihedral + dihedralComplement * x_complement,
-      dihedral * y_dihedral + dihedralComplement * y_complement,
-      dihedral * z_dihedral + dihedralComplement * z_complement,
+      orient(x_dihedral, x_complement, x_outer),
+      orient(y_dihedral, y_complement, y_outer),
+      orient(z_dihedral, z_complement, z_outer),
       // This rotation order allows rotation to take place in world space
       // rather than local space. See https://threejs.org/docs/#api/math/Euler
       'ZYX'
