@@ -3,14 +3,47 @@ import ReactDOM from 'react-dom'
 import React3 from 'react-three-renderer'
 import * as three from 'three'
 
-const phi = (1 + Math.sqrt(5)) / 2
-const dihedral = 2 * Math.atan(phi)
-const dihedralComplement = (Math.PI) - dihedral
-const outerAngle = 36 * Math.PI / 180
+const rotations = function generateRotations() {
+  const phi = (1 + Math.sqrt(5)) / 2
+  const dihedral = 2 * Math.atan(phi)
+  const dihedralComplement = (Math.PI) - dihedral
+  const outerAngle = 36 * Math.PI / 180
 
-function orient(d, c, o) {
-  return d * dihedral + c * dihedralComplement + o * outerAngle
-}
+  // The various faces of the dodecahedron are aligned to angles that can be
+  // decomposed by components of the dihedral angle, its complement, and the
+  // complement to the interior angle of a regular pentagon. This function
+  // simply takes coefficients for those components and combines them into an
+  // angle.
+  function orient(d, c, o) {
+    return d * dihedral + c * dihedralComplement + o * outerAngle
+  }
+
+  // This is an array of coefficients as described above.
+  const faceOrientations = [
+    { x: [0.5, 0, 0], y: [0, 0, 0], z: [0, 0, -3] },
+    { x: [0.5, 0.5, 0], y: [-0.5, 0, 0], z: [0, 0, -4.5] },
+    { x: [0, 0, 0], y: [-1, -0.5, 0], z: [0, 0, -2.5] },
+    { x: [0, 0, 0], y: [1, 0.5, 0], z: [0, 0, -3.5] },
+    { x: [-0.5, -0.5, 0], y: [0.5, 0, 0], z: [0, 0, 4.5] },
+    { x: [-1.5, -1, 0], y: [0, 0, 0], z: [0, 0, 2] },
+    { x: [0.5, 0.5, 0], y: [0.5, 0, 0], z: [0, 0, 0.5] },
+    { x: [0, 0, 0], y: [0, 0.5, 0], z: [0, 0, -2.5] },
+    { x: [1.5, 1, 0], y: [0, 0, 0], z: [0, 0, 3] },
+    { x: [0, 0, 0], y: [0, -0.5, 0], z: [0, 0, -1.5] },
+    { x: [-0.5, -0.5, 0], y: [-0.5, 0, 0], z: [0, 0, 1.5] },
+    { x: [-0.5, 0, 0], y: [0, 0, 0], z: [0, 0, -2] },
+  ]
+
+  return faceOrientations.map(o => (
+    new three.Quaternion().setFromEuler(new three.Euler(
+      orient(o.x[0], o.x[1], o.x[2]),
+      orient(o.y[0], o.y[1], o.y[2]),
+      orient(o.z[0], o.z[1], o.z[2]),
+      // This rotation order allows rotation to take place in world space
+      // rather than local space. See https://threejs.org/docs/#api/math/Euler
+      'ZYX'
+    ))))
+}()
 
 function generateUVs() {
   // Using some trig to find UV coordinates of a regular pentagon inscribed
@@ -26,8 +59,7 @@ function generateUVs() {
   const A = (1 - H) / 2
   const O = H * Math.sin(Math.PI / 180 * 72)
 
-  // This length is the y distance from the left vertex to the top
-  // vertex
+  // This length is the vertical distance from the left vertex to the top vertex
   const A_TOP = H * Math.cos(Math.PI / 180 * (72 - 18))
 
   return {
@@ -114,20 +146,9 @@ export default class World extends React.Component {
     const height = window.innerHeight
 
     const {
+      currentSector = 0,
       children,
-      x_dihedral=0.5, x_complement=0, x_outer=0,
-      y_dihedral=0, y_complement=0, y_outer=0,
-      z_dihedral=0, z_complement=0, z_outer=-3
     } = this.props
-
-    const rotation = new three.Euler(
-      orient(x_dihedral, x_complement, x_outer),
-      orient(y_dihedral, y_complement, y_outer),
-      orient(z_dihedral, z_complement, z_outer),
-      // This rotation order allows rotation to take place in world space
-      // rather than local space. See https://threejs.org/docs/#api/math/Euler
-      'ZYX'
-    )
 
     return (
       <React3
@@ -149,7 +170,7 @@ export default class World extends React.Component {
             position={this.lightPosition}
             lookAt={this.lightLookAt}
           />
-          <group rotation={rotation} ref='mount' />
+          <group quaternion={rotations[currentSector]} ref='mount' />
           { React.Children.map(children, (child, i) => (
             React.cloneElement(child, {
               key: i,

@@ -16,16 +16,35 @@ function time() {
 class TextureUpdateTest extends React.Component {
   constructor() {
     super()
-    this.state = { now: time() }
+    this.state = {
+      surface: 0,
+      now: time()
+    }
     window.setInterval(
       () => { this.setState({ now: time() }) },
       1000
     )
+
+    document.addEventListener('keydown', e => {
+      if (e.key === 'ArrowLeft') {
+        this.setState(previousState => ({
+          surface: (previousState.surface - 1 + 12) % 12
+        }))
+      }
+
+      if (e.key === 'ArrowRight') {
+        this.setState(previousState => ({
+          surface: (previousState.surface + 1) % 12
+        }))
+      }
+    })
   }
+
+
 
   render() {
     return (
-      <World>
+      <World currentSector={this.state.surface}>
          { text.map((text, i) => (
            <CanvasTextRenderer key={i} text={
              i === 0
