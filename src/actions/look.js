@@ -1,5 +1,4 @@
-import describeSector from '@sectors/biomes/description'
-import { describeItem } from '@items'
+import { describeSector, describeItem } from '@describe'
 import { current, findInCurrentSector } from '@util'
 
 export default (gameState, target) => {
@@ -9,6 +8,6 @@ export default (gameState, target) => {
   }
 
   const thing = findInCurrentSector(gameState, target.toUpperCase())
-  return thing ? { gameState, text: describeItem(thing) } :
+  return thing ? { gameState, text: describeItem(gameState, thing) } :
     { gameState, text: `You don't see ${target}` }
 }

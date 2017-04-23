@@ -1,0 +1,8 @@
+{
+  "biome": "FOREST",
+  "id": "FOREST",
+  "items": ["DRONE"],
+  "modifiers": {
+    "paid": false
+  }
+}

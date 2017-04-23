@@ -1,8 +1,9 @@
 import readline from 'readline'
 import { factory } from '@sectors'
-import describeSector from '@sectors/biomes/description'
+import { describeSector } from '@describe'
 import { current } from '@util'
-import * as actions from './actions'
+import * as actions from '@actions'
+import * as items from '@items'
 
 const rl = readline.createInterface({
   input: process.stdin,
@@ -12,8 +13,8 @@ const rl = readline.createInterface({
 const initGame = {
   sector: 1,
   sectors: factory(),
-  inventory: [],
-
+  inventory: ['CREDITS'],
+  items
 }
 
 const parseInput = (input) => {

@@ -1,4 +1,4 @@
-import * as biomes from './biomes'
+import * as sectors from './sectors'
 import { values } from '@util'
 
 const base = {
@@ -27,12 +27,12 @@ const directions = ['NE', 'E', 'S', 'W', 'NW']
 
 const mapToExit = sMap => sMap.map((id, idx) => ({ direction: directions[idx], sector: id }))
 
-const makeSector = (idx, biome) => (
-  { ...base, idx, neighbors: mapToExit(sectorMap[idx]), ...biome() }
+const makeSector = (idx, sector) => (
+  { ...base, idx, neighbors: mapToExit(sectorMap[idx]), ...sector }
 )
 
-export default () => values(biomes)
-                           .reduce((acc, biome, idx) => {
-                             const sector = makeSector(idx + 1, biome)
-                             return { ...acc, [sector.id]: sector }
+export default () => values(sectors)
+                           .reduce((acc, sector, idx) => {
+                             const newSector = makeSector(idx + 1, sector)
+                             return { ...acc, [newSector.id]: newSector }
                            }, {})

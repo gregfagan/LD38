@@ -1,9 +1,0 @@
-export default () => ({
-  biome: 'SETTLEMENT',
-  id: 'SETTLEMENT',
-  items: [],
-  modifiers: {
-    power: false,
-    marked: false
-  }
-})

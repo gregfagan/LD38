@@ -1,0 +1,10 @@
+{
+  "type": "ITEM",
+  "id": "LIGHT SWITCH",
+  "shortDescription": "a LIGHT SWITCH",
+  "modifiers": {
+    "position": "off"
+  },
+  "takeable": false,
+  "rejectText": "Are you kidding? It's bolted to a wall."
+}

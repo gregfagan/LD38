@@ -38,7 +38,9 @@ const config = {
       '@util': `${__dirname}/src/util`,
       '@items': `${__dirname}/src/items`,
       '@actions': `${__dirname}/src/actions`,
-      '@sectors': `${__dirname}/src/sectors`
+      '@sectors': `${__dirname}/src/sectors`,
+      '@describe': `${__dirname}/src/describe`,
+      '@useables': `${__dirname}/src/useables`
     }
   }
 }

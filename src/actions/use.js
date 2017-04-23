@@ -1,5 +1,4 @@
-import { use } from '../items'
-import { current, has, updateItemInSector, findInSector } from '@util'
+import use from '@useables'
 
 //
 // const getField = field => {

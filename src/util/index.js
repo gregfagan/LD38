@@ -2,7 +2,7 @@ export const values = obj => Object.keys(obj).map(key => obj[key])
 
 export const current = gameState => values(gameState.sectors).find(sector => gameState.sector === sector.idx)
 
-export const findInSector = (sector, thing) => sector.items.find(item => item.id === thing)
+export const findInSector = (sector, thing) => sector.items.find(item => item === thing)
 
 export const findInCurrentSector = (gameState, thing) => findInSector(current(gameState), thing)
 
@@ -17,3 +17,5 @@ export const has = (obj, prop) => Object.prototype.hasOwnProperty.call(obj, prop
 export const updateItemInSector = (sector, newItem) => ({ ...sector, items: sector.items.map(item => (item.id === newItem.id ? newItem : item)) })
 
 export const getSector = (gameState, sectorIdx) => values(gameState.sectors).find(sector => sectorIdx === sector.idx)
+
+export const getItem = (gameState, id) => values(gameState.items).find(item => item.id === id.toUpperCase())

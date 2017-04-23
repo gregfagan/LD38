@@ -1,0 +1,7 @@
+{
+  "type": "ITEM",
+  "id": "DRONE",
+  "shortDescription": "a DRONE",
+  "takeable": false,
+  "rejectText": "Hey! You can't have that! That's ours! It's worth a lot of credits!"
+}
