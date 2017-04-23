@@ -1,11 +1,12 @@
 import path from 'path'
+import webpack from 'webpack'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
 
 const config = {
   entry: './src/index.js',
   output: {
     path: path.resolve(__dirname, 'build'),
-    filename: 'bundle.js',
+    filename: '[name].[chunkhash].js',
     publicPath: '/LD38',
   },
   module: {
@@ -25,7 +26,14 @@ const config = {
     new HtmlWebpackPlugin({
       title: 'LDJAM 38',
       template: 'template.ejs',
-    })
+    }),
+    new webpack.optimize.CommonsChunkPlugin({
+        name: 'vendor',
+        minChunks: function (module) {
+           return module.context && module.context.indexOf('node_modules') !== -1;
+        }
+    }),
+    new webpack.optimize.CommonsChunkPlugin({ name: 'manifest' })
   ],
 }
 
