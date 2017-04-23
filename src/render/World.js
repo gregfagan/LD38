@@ -21,7 +21,7 @@ export default class World extends React.Component {
     super(props, context)
 
     this.cameraPosition = new three.Vector3(0, 0, 5)
-    this.lightPosition = new three.Vector3(0, 0, 15)
+    this.lightPosition = new three.Vector3(-5, 5, 15)
     this.lightLookAt = new three.Vector3(0, 0, 0)
 
     this.canvases = [...Array(12).keys()].map(i => createCanvas(512))
@@ -92,20 +92,22 @@ export default class World extends React.Component {
         onAnimate={this.animate}
       >
         <scene>
-          <perspectiveCamera
-            name="camera"
-            fov={20}
-            aspect={width/height}
-            near={0.1}
-            far={1000}
-            position={this.cameraPosition}
-          />
-          <ambientLight intensity={0.2} />
+          <group quaternion={rotation.conjugate()}>
+            <perspectiveCamera
+              name="camera"
+              fov={20}
+              aspect={width/height}
+              near={0.1}
+              far={1000}
+              position={this.cameraPosition}
+            />
+          </group>
+          <ambientLight intensity={0.5} />
           <directionalLight
             position={this.lightPosition}
             lookAt={this.lightLookAt}
           />
-          <group quaternion={rotation} ref='mount' />
+          <group ref='mount' />
           { React.Children.map(children, (child, i) => (
             React.cloneElement(child, {
               key: i,
