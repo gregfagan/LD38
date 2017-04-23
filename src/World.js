@@ -38,31 +38,10 @@ function generateUVs() {
   }
 }
 
-function createCanvas(index) {
+function createCanvas(resolution) {
   const canvas = document.createElement('canvas')
-  canvas.width = 512
-  canvas.height = 512
-  const ctx = canvas.getContext('2d')
-
-  ctx.font = '13pt monospace'
-  const text = index < 10
-    ? index
-    : index === 10
-      ? 'A'
-      : 'B'
-  const textWidth = ctx.measureText(text).width
-  const lineLength = Math.trunc(canvas.width / textWidth)
-  const lineHeight = 17
-
-  ctx.fillStyle = '#112211'
-  ctx.fillRect(0, 0, canvas.width, canvas.height)
-  ctx.fillStyle = '#44aa44'
-  for (let j = 0; j < canvas.height / lineHeight; ++j) {
-    for (let i = 0; i < lineLength; ++i) {
-      ctx.fillText(text, textWidth * i, lineHeight * j)
-    }
-  }
-
+  canvas.width = resolution
+  canvas.height = resolution
   return canvas
 }
 
@@ -74,12 +53,14 @@ export default class World extends React.Component {
     this.lightPosition = new three.Vector3(0, 0, 15)
     this.lightLookAt = new three.Vector3(0, 0, 0)
 
-    this.canvases = [...Array(12).keys()].map(i => createCanvas(i))
+    this.canvases = [...Array(12).keys()].map(i => createCanvas(512))
     this.textures = this.canvases.map(c => new three.CanvasTexture(c))
     this.materials = this.textures.map(t => new three.MeshPhongMaterial({
       map: t,
       shading: three.FlatShading,
     }))
+
+    this.handleCanvasRender = this.handleCanvasRender.bind(this)
 
     window.addEventListener('resize', () => this.forceUpdate())
   }
@@ -123,11 +104,19 @@ export default class World extends React.Component {
     this.refs.mount.add(mesh)
   }
 
+  handleCanvasRender(index) {
+    this.textures[index].needsUpdate = true
+  }
+
   render() {
     const width = window.innerWidth
     const height = window.innerHeight
 
-    const { x_dihedral, y_dihedral, z_dihedral, x_complement, y_complement, z_complement } = this.props
+    const {
+      children,
+      x_dihedral, y_dihedral, z_dihedral, x_complement, y_complement, z_complement
+    } = this.props
+
     const rotation = new three.Euler(
       dihedral * x_dihedral + dihedralComplement * x_complement,
       dihedral * y_dihedral + dihedralComplement * y_complement,
@@ -158,6 +147,14 @@ export default class World extends React.Component {
             lookAt={this.lightLookAt}
           />
           <group rotation={rotation} ref='mount' />
+          { React.Children.map(children, (child, i) => (
+            React.cloneElement(child, {
+              key: i,
+              id: i,
+              canvas: this.canvases[i],
+              didRender: this.handleCanvasRender
+            })
+          ))}
         </scene>
       </React3>
     )
