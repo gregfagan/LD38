@@ -18,6 +18,11 @@ const config = {
           presets: ['env', 'react'],
           plugins: ['transform-object-rest-spread']
         },
+      },
+      {
+        test: /.hbs$/,
+        include: path.resolve(__dirname, 'src'),
+        loader: 'raw-loader'
       }
     ]
   },
@@ -27,6 +32,15 @@ const config = {
       template: 'template.ejs',
     })
   ],
+  resolve: {
+    extensions: ['.js'],
+    alias: {
+      '@util': `${__dirname}/src/util`,
+      '@items': `${__dirname}/src/items`,
+      '@actions': `${__dirname}/src/actions`,
+      '@sectors': `${__dirname}/src/sectors`
+    }
+  }
 }
 
 if (process.env.NODE_ENV !== 'production') {

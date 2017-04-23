@@ -1,5 +1,7 @@
 import readline from 'readline'
-import sectors from './sectors'
+import { factory } from '@sectors'
+import describeSector from '@sectors/biomes/description'
+import { current } from '@util'
 import * as actions from './actions'
 
 const rl = readline.createInterface({
@@ -9,8 +11,9 @@ const rl = readline.createInterface({
 
 const initGame = {
   sector: 1,
-  sectors,
-  inventory: []
+  sectors: factory(),
+  inventory: [],
+
 }
 
 const parseInput = (input) => {
@@ -38,6 +41,9 @@ const parseInput = (input) => {
     case 'EXAMINE': {
       return { action, target: rest.join(' ') }
     }
+    case 'USE': {
+      return { action, target: rest.join(' ') }
+    }
     default:
       return { action }
   }
@@ -58,4 +64,4 @@ const q = (context, { gameState, text }) => {
   })
 }
 
-q(rl, { gameState: initGame, text: 'Hello' })
+q(rl, { gameState: initGame, text: describeSector(current(initGame), initGame) })

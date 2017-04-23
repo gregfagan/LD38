@@ -6,7 +6,8 @@
   "scripts": {
     "start": "webpack-dev-server",
     "build": "NODE_ENV=production webpack -p",
-    "publish": "node publish.js"
+    "publish": "node publish.js",
+    "dev": "webpack -w --config webpack.config.dev.babel.js"
   },
   "repository": {
     "type": "git",
@@ -41,10 +42,13 @@
     "eslint-plugin-react": "^6.10.0",
     "html-webpack-plugin": "^2.28.0",
     "inquirer": "^3.0.6",
+    "nodemon": "^1.11.0",
+    "raw-loader": "^0.5.1",
     "webpack": "^2.4.1",
     "webpack-dev-server": "^2.4.2"
   },
   "dependencies": {
+    "handlebars": "^4.0.6",
     "react": "^15.5.4",
     "react-dom": "^15.5.4"
   }

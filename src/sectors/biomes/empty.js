@@ -1,0 +1,9 @@
+export default () => ({
+  biome: 'EMPTY',
+  id: 'EMPTY',
+  items: [],
+  modifiers: {
+    power: false,
+    marked: false
+  }
+})
