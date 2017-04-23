@@ -1,8 +1,8 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 
-import World from './World'
-import CanvasTextRenderer from './CanvasTextRenderer'
+import World from './render/World'
+import CanvasTextRenderer from './render/CanvasTextRenderer'
 
 const text = [...Array(12).keys()].map(index =>
   Array(1000).fill(index < 10 ? '' + index : index === 10 ? 'a' : 'b').join('')
