@@ -2,6 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import React3 from 'react-three-renderer'
 import * as three from 'three'
+import { easeElasticOut } from 'd3-ease'
 
 import { rotations, updateUVs } from './dodecahedron'
 
@@ -11,6 +12,9 @@ function createCanvas(resolution) {
   canvas.height = resolution
   return canvas
 }
+
+const rotateDuration = 750
+const ease = easeElasticOut.period(1.5)
 
 export default class World extends React.Component {
   constructor(props, context) {
@@ -27,6 +31,13 @@ export default class World extends React.Component {
       shading: three.FlatShading,
     }))
 
+    const now = performance.now()
+    this.state = {
+      now,
+      lastSector: { id: 0, when: now }
+    }
+
+    this.animate = this.animate.bind(this)
     this.handleCanvasRender = this.handleCanvasRender.bind(this)
 
     window.addEventListener('resize', () => this.forceUpdate())
@@ -40,6 +51,18 @@ export default class World extends React.Component {
     this.refs.mount.add(mesh)
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.currentSector != this.props.currentSector) {
+      this.setState({
+        lastSector: { id: this.props.currentSector, when: performance.now() }
+      })
+    }
+  }
+
+  animate() {
+    this.setState({ now: performance.now() })
+  }
+
   handleCanvasRender(index) {
     this.textures[index].needsUpdate = true
   }
@@ -48,16 +71,25 @@ export default class World extends React.Component {
     const width = window.innerWidth
     const height = window.innerHeight
 
-    const {
-      currentSector = 0,
-      children,
-    } = this.props
+    const { currentSector = 0, children } = this.props
+    const { now, lastSector } = this.state
+
+    const timeSinceSectorChange = now - lastSector.when
+    const t = Math.min(1, timeSinceSectorChange / rotateDuration)
+    const rotation = new three.Quaternion()
+    three.Quaternion.slerp(
+      rotations[lastSector.id],
+      rotations[currentSector],
+      rotation,
+      ease(t)
+    )
 
     return (
       <React3
         mainCamera="camera"
         width={width}
         height={height}
+        onAnimate={this.animate}
       >
         <scene>
           <perspectiveCamera
@@ -73,7 +105,7 @@ export default class World extends React.Component {
             position={this.lightPosition}
             lookAt={this.lightLookAt}
           />
-          <group quaternion={rotations[currentSector]} ref='mount' />
+          <group quaternion={rotation} ref='mount' />
           { React.Children.map(children, (child, i) => (
             React.cloneElement(child, {
               key: i,
