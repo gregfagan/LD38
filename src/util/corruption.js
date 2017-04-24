@@ -1,6 +1,6 @@
 const GLYPHS = ['X', 'x']
-const OFFSET = 1
-const SCALE = 0.03
+const OFFSET = 3
+const SCALE = 0.0015
 
 const sample = arr => arr[Math.floor(Math.random() * arr.length)]
 const corruptionLevel = (sector, time) => (time * SCALE) / (sector + OFFSET)
