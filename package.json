@@ -42,7 +42,12 @@
     "webpack-dev-server": "^2.4.2"
   },
   "dependencies": {
+    "d3-ease": "^1.0.3",
     "react": "^15.5.4",
-    "react-dom": "^15.5.4"
+    "react-dom": "^15.5.4",
+    "react-three-renderer": "^3.1.0",
+    "three": "^0.85.0",
+    "typesettable": "^3.1.0",
+    "webfontloader": "^1.6.27"
   }
 }
