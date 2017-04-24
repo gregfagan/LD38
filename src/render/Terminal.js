@@ -1,18 +1,10 @@
 import React from 'react'
-import { Wrapper, CacheMeasurer, CanvasContext } from 'typesettable'
 
 import * as dimensions from './dimensions'
 import CanvasRenderer from './CanvasRenderer'
 
 const blinkRate = 750
 const validInput = new Set('abcdefghijklmnopqrstuvwxyz1234567890 ')
-
-function createWrapper(ctx) {
-  const context = new CanvasContext(ctx, dimensions.lineHeight, { font: dimensions.font })
-  const measurer = new CacheMeasurer(context)
-  const wrapper = new Wrapper().allowBreakingWords(false)
-  return { measurer, wrapper }
-}
 
 export default class Terminal extends React.Component {
   constructor(props, context) {
@@ -24,9 +16,7 @@ export default class Terminal extends React.Component {
       caret: { on: true, when: props.now }
     }
 
-    // we need a canvas context to create our wrapper, but we only need to
-    // create it once and it can be shared across all of the sectors
-    this.wrapper = null
+    this.wrap(props.text)
   }
 
   componentDidMount() {
@@ -84,19 +74,23 @@ export default class Terminal extends React.Component {
   }
 
   wrap(text) {
-    if (!this.wrapper) return
-    const { wrapper, measurer } = this.wrapper
-    const wrappedText = wrapper.wrap(
-      text,
-      measurer,
-      dimensions.terminal.width * dimensions.charWidth
-    ).wrappedText
-    this.wrappedLines = wrappedText.split('\n')
+    this.wrappedLines = text.split(/( |\n)/).reduce((result, token) => {
+      // Insert new lines when explictly called for
+      if (token === '\n') return ['', ...result]
+
+      const [last, ...rest] = result
+
+      // Don't insert whitespace at the beginning of a line
+      if (last.length === 0 && token === ' ') return result
+
+      return (last.length + token.length <= dimensions.terminal.width)
+        ? [last + token, ...rest]
+        : [token, ...result]
+    }, ['']).reverse()
   }
 
   render() {
     const {
-      text = '',
       textColor = '#44aa44',
       backgroundColor = '#112211',
       now,
@@ -108,11 +102,6 @@ export default class Terminal extends React.Component {
     return (
       <CanvasRenderer onRender={(canvas) => {
         const ctx = canvas.getContext('2d')
-
-        if (!this.wrapper) {
-          this.wrapper = createWrapper(ctx)
-          this.wrap(text)
-        }
 
         const startOnLine = Math.max(0, this.wrappedLines.length - dimensions.terminal.outputHeight - lookBehind)
         const stopOnLine = Math.max(dimensions.terminal.outputHeight, this.wrappedLines.length - lookBehind)
@@ -129,7 +118,7 @@ export default class Terminal extends React.Component {
         ctx.fillRect(
           0, 0,
           dimensions.terminal.width * dimensions.charWidth,
-          (dimensions.terminal.height + 0.2) * dimensions.lineHeight
+          ((visibleLines.length + 2) + 0.2) * dimensions.lineHeight
         )
 
         ctx.font = dimensions.font
@@ -145,7 +134,7 @@ export default class Terminal extends React.Component {
         })
 
         const inputLine = input + (caret.on ? '■' : '')
-        ctx.translate(0, (dimensions.terminal.height - 1) * dimensions.lineHeight)
+        ctx.translate(0, (visibleLines.length + 1) * dimensions.lineHeight)
 
         for (let i = 0; i < inputLine.length; i += 1) {
           ctx.fillText(inputLine.charAt(i), i * dimensions.charWidth, dimensions.lineHeight)

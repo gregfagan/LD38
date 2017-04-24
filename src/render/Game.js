@@ -9,7 +9,7 @@ import track from '../audio/music.m4a'
 import { current, getItem } from '@util'
 import corruption from '@util/corruption'
 
-const bufferText = buffer => buffer.reduce((result, entry) => `${entry}\n${result}`, '')
+const bufferText = buffer => buffer.reduce((result, entry) => `${entry}${result.length > 0 ? '\n\n' : ''}${result}`, '')
 const listening = state => getItem(state, 'HEADPHONES').modifiers.listening
 
 export default ({ dispatch, ...state }) => {
