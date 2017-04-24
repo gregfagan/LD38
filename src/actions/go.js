@@ -1,18 +1,20 @@
 import { describeSector } from '@describe'
 import { current, getSector, clearBuffer, addToBuffer, compose, addTime } from '@util'
 
-const validDirections = ['NE', 'E', 'S', 'W', 'NW']
-
 export default (gameState, direction) => {
-  if (validDirections.indexOf(direction) < 0) {
-    return addToBuffer('That\'s not a valid direction.')(gameState)
-  }
   const currentSector = current(gameState)
-  const nextSector = currentSector.neighbors.find(neighbor => neighbor.direction === direction)
+  const neighborNames = currentSector.neighbors.map(neighbor => getSector(gameState, neighbor.sector).id)
+
+  if (neighborNames.indexOf(direction) < 0) {
+    return addToBuffer('That\'s not a place you can go.')(gameState)
+  }
+
+  const nextSector = gameState.sectors[direction]
+
   const changes = compose([
     clearBuffer,
     addTime,
-    addToBuffer(describeSector(getSector(gameState, nextSector.sector), gameState))
+    addToBuffer(describeSector(nextSector, gameState))
   ])
-  return changes({ ...gameState, sector: nextSector.sector })
+  return changes({ ...gameState, sector: nextSector.idx })
 }

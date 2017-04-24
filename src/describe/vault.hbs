@@ -2,7 +2,7 @@
 A guard stands before you. "You may not enter here," they say.
 {{ else }}
 Without a guard, you are able to access the vault.
-  {{#ifIn 'CREDITS' sectors.VAULT.items }}
+  {{#ifIn sectors.VAULT.items 'CREDITS' }}
   The vault is full of sweet creds.
   {{else}}
   The vault is empty.
