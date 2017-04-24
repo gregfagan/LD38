@@ -22,8 +22,7 @@ const parseInput = (input) => {
       return { action, target: target.join(' ') }
     }
     case 'GO': {
-      const [target] = rest
-      return { action, target }
+      return { action, target: rest.join(' ') }
     }
     case 'TAKE': {
       return { action, target: rest.join(' ') }
