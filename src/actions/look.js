@@ -1,5 +1,5 @@
 import { describeSector, describeItem } from '@describe'
-import { current, findInCurrentSector, addToBuffer } from '@util'
+import { current, addToBuffer } from '@util'
 
 export default (gameState, target) => {
   const sector = current(gameState)
@@ -7,7 +7,7 @@ export default (gameState, target) => {
     return addToBuffer(describeSector(sector, gameState))(gameState)
   }
 
-  const thing = findInCurrentSector(gameState, target)
+  const thing = current(gameState).items.find(i => i === target)
   return thing ? addToBuffer(describeItem(gameState, thing))(gameState) :
                  addToBuffer(`You don't see ${target}`)(gameState)
 }
