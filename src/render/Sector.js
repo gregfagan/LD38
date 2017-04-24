@@ -13,31 +13,29 @@ export default class Sector extends React.Component {
 
   render() {
     const {
-      text='',
-      textColor='#44aa44',
-      backgroundColor='#112211',
-      backgroundTextColor='#115511',
+      text = '',
+      textColor = '#115511',
+      backgroundColor = '#112211',
       ...props
     } = this.props
 
     return (
-      <CanvasRenderer onRender={canvas => {
+      <CanvasRenderer onRender={(canvas) => {
         const { width, height } = canvas
         const ctx = canvas.getContext('2d')
 
         ctx.fillStyle = backgroundColor
         ctx.fillRect(0, 0, width, height)
 
-        const charsPerLine = width/dimensions.charWidth
+        const charsPerLine = width / dimensions.charWidth
 
         ctx.font = dimensions.font
-        ctx.fillStyle = backgroundTextColor
-        for (let i=0; i < text.length; ++i) {
-          let x = (i % charsPerLine) * dimensions.charWidth
-          let y = (1 + Math.floor(i / charsPerLine)) * dimensions.lineHeight
+        ctx.fillStyle = textColor
+        for (let i = 0; i < text.length; i += 1) {
+          const x = (i % charsPerLine) * dimensions.charWidth
+          const y = (1 + Math.floor(i / charsPerLine)) * dimensions.lineHeight
           ctx.fillText(text.charAt(i), x, y)
         }
-
       }} {...props} />
     )
   }

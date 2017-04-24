@@ -1,5 +1,4 @@
 import React from 'react'
-import ReactDOM from 'react-dom'
 import React3 from 'react-three-renderer'
 import * as three from 'three'
 import { easeElasticOut } from 'd3-ease'
@@ -26,7 +25,7 @@ export default class World extends React.Component {
     this.lightPosition = new three.Vector3(-5, 5, 15)
     this.lightLookAt = new three.Vector3(0, 0, 0)
 
-    this.canvases = [...Array(12).keys()].map(i => createCanvas(textureSize))
+    this.canvases = [...Array(12).keys()].map(() => createCanvas(textureSize))
     this.textures = this.canvases.map(c => new three.CanvasTexture(c))
     this.materials = this.textures.map(t => new three.MeshPhongMaterial({
       map: t,
@@ -50,11 +49,11 @@ export default class World extends React.Component {
     updateUVs(geometry)
 
     const mesh = new three.Mesh(geometry, this.materials)
-    this.refs.mount.add(mesh)
+    this.mount.add(mesh)
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.currentSector != this.props.currentSector) {
+    if (nextProps.currentSector !== this.props.currentSector) {
       this.setState({
         lastSector: { id: this.props.currentSector, when: performance.now() }
       })
@@ -73,7 +72,7 @@ export default class World extends React.Component {
     const width = window.innerWidth
     const height = window.innerHeight
 
-    const { currentSector = 0, terminalText='', children } = this.props
+    const { currentSector = 0, terminalText = '', children } = this.props
     const { now, lastSector } = this.state
 
     const timeSinceSectorChange = now - lastSector.when
@@ -87,29 +86,26 @@ export default class World extends React.Component {
     )
 
     return (
-      <React3
-        mainCamera="camera"
+      <React3 mainCamera="camera"
         width={width}
         height={height}
         onAnimate={this.animate}
       >
         <scene>
           <group quaternion={rotation.conjugate()}>
-            <perspectiveCamera
-              name="camera"
+            <perspectiveCamera name="camera"
               fov={20}
-              aspect={width/height}
+              aspect={width / height}
               near={0.1}
               far={1000}
               position={this.cameraPosition}
             />
           </group>
           <ambientLight intensity={0.75} />
-          <directionalLight
-            position={this.lightPosition}
+          <directionalLight position={this.lightPosition}
             lookAt={this.lightLookAt}
           />
-          <group ref='mount' />
+          <group ref={(g) => { this.mount = g }} />
           { React.Children.map(children, (child, i) => (
             React.cloneElement(child, {
               id: i,
@@ -118,8 +114,7 @@ export default class World extends React.Component {
               didRender: this.handleCanvasRender
             })
           ))}
-          <Terminal
-            text={terminalText}
+          <Terminal text={terminalText}
             now={t >= 1 ? now : lastSector.when} // don't animate while rotating
             canvas={this.canvases[currentSector]}
             id={currentSector}

@@ -4,7 +4,7 @@ function generateRotations() {
   const phi = (1 + Math.sqrt(5)) / 2
   const dihedral = 2 * Math.atan(phi)
   const dihedralComplement = (Math.PI) - dihedral
-  const outerAngle = 36 * Math.PI / 180
+  const outerAngle = 36 * (Math.PI / 180)
 
   // The various faces of the dodecahedron are aligned to angles that can be
   // decomposed by components of the dihedral angle, its complement, and the
@@ -12,7 +12,7 @@ function generateRotations() {
   // simply takes coefficients for those components and combines them into an
   // angle.
   function orient(d, c, o) {
-    return d * dihedral + c * dihedralComplement + o * outerAngle
+    return (d * dihedral) + (c * dihedralComplement) + (o * outerAngle)
   }
 
   // This is an array of coefficients as described above.
@@ -53,12 +53,14 @@ function generateUVs() {
   // given the angle which is complement to the interior pentagon angle (72 degrees)
   //
   // the hypotenuse is the side length of the pentagon
-  const H = 1 / (1 + 2 * Math.cos(Math.PI / 180 * 72))
+  const complementAngle = 72 * (Math.PI / 180)
+  const H = 1 / (1 + (2 * Math.cos(complementAngle)))
   const A = (1 - H) / 2
-  const O = H * Math.sin(Math.PI / 180 * 72)
+  const O = H * Math.sin(complementAngle)
 
   // This length is the vertical distance from the left vertex to the top vertex
-  const A_TOP = H * Math.cos(Math.PI / 180 * (72 - 18))
+  const smallerComplementAngle = (72 - 18) * (Math.PI / 180)
+  const A_TOP = H * Math.cos(smallerComplementAngle)
 
   return {
     top: { u: 0.5, v: O + A_TOP },
@@ -69,12 +71,13 @@ function generateUVs() {
   }
 }
 
+/*eslint no-param-reassign: ["error", { "props": false }]*/
 const UVs = generateUVs()
 export function updateUVs(geometry) {
-  for (let i = 0; i < 12; ++i) {
-    geometry.faces[i * 3    ].materialIndex = i
-    geometry.faces[i * 3 + 1].materialIndex = i
-    geometry.faces[i * 3 + 2].materialIndex = i
+  for (let i = 0; i < 12; i += 1) {
+    geometry.faces[i * 3].materialIndex = i
+    geometry.faces[(i * 3) + 1].materialIndex = i
+    geometry.faces[(i * 3) + 2].materialIndex = i
 
     let faceUVs = geometry.faceVertexUvs[0][i * 3]
     faceUVs[0].x = UVs.left.u
@@ -84,7 +87,7 @@ export function updateUVs(geometry) {
     faceUVs[2].x = UVs.top.u
     faceUVs[2].y = UVs.top.v
 
-    faceUVs = geometry.faceVertexUvs[0][i * 3 + 1]
+    faceUVs = geometry.faceVertexUvs[0][(i * 3) + 1]
     faceUVs[0].x = UVs.bottomLeft.u
     faceUVs[0].y = UVs.bottomLeft.v
     faceUVs[1].x = UVs.bottomRight.u
@@ -92,7 +95,7 @@ export function updateUVs(geometry) {
     faceUVs[2].x = UVs.top.u
     faceUVs[2].y = UVs.top.v
 
-    faceUVs = geometry.faceVertexUvs[0][i * 3 + 2]
+    faceUVs = geometry.faceVertexUvs[0][(i * 3) + 2]
     faceUVs[0].x = UVs.bottomRight.u
     faceUVs[0].y = UVs.bottomRight.v
     faceUVs[1].x = UVs.right.u
