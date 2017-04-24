@@ -7,7 +7,9 @@ export default class Sector extends React.Component {
   shouldComponentUpdate(nextProps) {
     return (
       nextProps.active !== this.props.active ||
-      nextProps.text !== this.props.text
+      nextProps.text !== this.props.text ||
+      nextProps.backgroundColor !== this.props.backgroundColor ||
+      nextProps.textColor !== this.props.textColor
     )
   }
 

@@ -2,6 +2,7 @@ import React from 'react'
 import World from './World'
 import Sector from './Sector'
 import Music from './Music'
+import getColors from '../colors'
 
 import track from '../audio/music.m4a'
 
@@ -13,18 +14,18 @@ const listening = state => getItem(state, 'HEADPHONES').modifiers.listening
 
 export default ({ dispatch, ...state }) => {
   const sector = current(state)
+  const { textColor, backgroundColor } = getColors(sector.id, state)
   return (
     <div>
       <World currentSector={sector.idx - 1}
              terminalText={bufferText(state.buffer)}
-             textColor={sector.textColor}
-             backgroundColor={sector.backgroundColor}
+             textColor={textColor}
+             backgroundColor={backgroundColor}
              dispatch={dispatch}>
          {
            Object.values(state.sectors)
                  .map(s => <Sector key={s.id}
-                                   textColor={s.backgroundTextColor || '#115511'}
-                                   backgroundColor={s.backgroundColor || '#112211'}
+                                   {...getColors(s.id, state)}
                                    text={corruption(s.background, state)} />)
          }
 
