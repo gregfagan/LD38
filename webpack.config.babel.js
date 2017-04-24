@@ -27,6 +27,14 @@ const config = {
         options: {
           helperDirs: [`${__dirname}/src/util/helpers`]
         }
+      },
+      {
+        test: /.m4a$/,
+        include: path.resolve(__dirname, 'src'),
+        loader: 'file-loader',
+        query: {
+          name: '[name][hash].[ext]'
+        }
       }
     ]
   },
@@ -51,7 +59,7 @@ const webConfig = {
   output: {
     ...config.output,
     filename: '[name].[chunkhash].js',
-    publicPath: '/LD38',
+    publicPath: '/LD38/',
   },
   plugins: [
     new HtmlWebpackPlugin({

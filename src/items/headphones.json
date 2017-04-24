@@ -1,0 +1,8 @@
+{
+  "type": "ITEM",
+  "id": "HEADPHONES",
+  "shortDescription": "a pair of HEADPHONES",
+  "modifiers": {
+    "listening": false
+  }
+}
