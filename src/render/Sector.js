@@ -9,14 +9,14 @@ export default class Sector extends React.Component {
       nextProps.active !== this.props.active ||
       nextProps.text !== this.props.text ||
       nextProps.backgroundColor !== this.props.backgroundColor ||
-      nextProps.textColor !== this.props.textColor
+      nextProps.backgroundTextColor !== this.props.backgroundTextColor
     )
   }
 
   render() {
     const {
       text = '',
-      textColor = '#115511',
+      backgroundTextColor = '#115511',
       backgroundColor = '#112211',
       ...props
     } = this.props
@@ -32,7 +32,7 @@ export default class Sector extends React.Component {
         const charsPerLine = width / dimensions.charWidth
 
         ctx.font = dimensions.font
-        ctx.fillStyle = textColor
+        ctx.fillStyle = backgroundTextColor
         for (let i = 0; i < text.length; i += 1) {
           const x = (i % charsPerLine) * dimensions.charWidth
           const y = (1 + Math.floor(i / charsPerLine)) * dimensions.lineHeight

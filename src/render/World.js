@@ -109,7 +109,7 @@ export default class World extends React.Component {
               position={this.cameraPosition}
             />
           </group>
-          <ambientLight intensity={0.75} />
+          <ambientLight intensity={1} />
           <directionalLight position={this.lightPosition}
             lookAt={this.lightLookAt}
           />

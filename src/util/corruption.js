@@ -3,9 +3,9 @@ const OFFSET = 5
 const CORRUPTION_MAX = 45
 
 const sample = arr => arr[Math.floor(Math.random() * arr.length)]
-const corruptionLevel = (sector, time) =>
+const corruptionLevel = (sector, time) => 0
   // console.log(time, sector, time / (sector * ((CORRUPTION_MAX - OFFSET) / 12))) ||
-  time / (sector * ((CORRUPTION_MAX - OFFSET) / 12))
+  // time / (sector * ((CORRUPTION_MAX - OFFSET) / 12))
 
 const place = (letter, sector, time) => (letter !== ' ' && Math.random() < corruptionLevel(sector, time) ? sample(GLYPHS) : letter)
 
