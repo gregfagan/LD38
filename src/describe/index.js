@@ -30,11 +30,12 @@
 
   export const describeSector = (sector, gameState) => {
     const { items, neighbors } = sector
-    const description = describe(gameState, sector)
+    // const description = describe(gameState, sector)
     const itemText = items.length ? `Around you is ${items.map(itemId => getItem(gameState, itemId).shortDescription).join(', ')}.` : null
-    const exitText = neighbors.map(neighbor => `${gameState ? getSector(gameState, neighbor.sector).id : neighbor.sector}`)
-
-    return `You are in Sector ${sector.id}\n${description}\n${itemText ? `${itemText}\n` : ''}\nExits: ${exitText.join(', ')}`
+    // const exitText = neighbors.map(neighbor => `${gameState ? getSector(gameState, neighbor.sector).id : neighbor.sector}`)
+    //
+    // return `You are in Sector ${sector.id}\n${description}\n${itemText ? `${itemText}\n` : ''}\nExits: ${exitText.join(', ')}`
+    return `${describe(gameState, sector)}\n${itemText ? `${itemText}\n` : ''}`
   }
 
   export const describeItem = (gameState, item) =>

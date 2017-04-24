@@ -44,3 +44,13 @@ export const atLocation = sectorId => gameState => current(gameState).id === sec
 export const compose = fns => gameState => fns.reduce((acc, fn) => fn(acc), gameState)
 export const addToBuffer = text => gameState => ({ ...gameState, buffer: [corruption(text, gameState), ...gameState.buffer] })
 export const clearBuffer = gameState => ({ ...gameState, buffer: [] })
+
+export const terminalText = (gameState) => {
+  const sector = current(gameState)
+  const { items, neighbors } = sector
+
+  // const itemText = (items.length ? `Around you is ${items.map(itemId => getItem(gameState, itemId).shortDescription).join(', ')}.` : null)
+  const exitText = neighbors.map(neighbor => (gameState ? getSector(gameState, neighbor.sector).id : neighbor.sector))
+
+  return `location >> ${sector.id}\n\exits >> ${exitText.join(', ')}\n${gameState.buffer[0]}`
+}

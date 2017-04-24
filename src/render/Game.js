@@ -2,16 +2,17 @@ import React from 'react'
 import World from './World'
 import Sector from './Sector'
 
-import { current } from '@util'
+import { current, terminalText } from '@util'
 import corruption from '@util/corruption'
 
 const bufferText = buffer => buffer.reduce((result, entry) => `${entry}\n${result}`, '')
+// terminalText={bufferText(state.buffer)}
 
 export default ({ dispatch, ...state }) => {
   const sector = current(state)
   return (
     <World currentSector={sector.idx - 1}
-           terminalText={bufferText(state.buffer)}
+           terminalText={terminalText(state)}
            textColor={sector.textColor}
            backgroundColor={sector.backgroundColor}
            dispatch={dispatch}>
