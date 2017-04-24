@@ -2,7 +2,7 @@ import factory from '@sectors'
 import { describeSector } from '@describe'
 import { current, addToBuffer } from '@util'
 import * as actions from '@actions'
-import * as items from '@items'
+import items from '@items'
 
 const initGame = {
   sector: 1,

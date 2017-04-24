@@ -3,7 +3,6 @@
   "id": "WASTE PLANT",
   "items": [],
   "modifiers": {
-    "power": false,
-    "marked": false
+    "running": true
   }
 }

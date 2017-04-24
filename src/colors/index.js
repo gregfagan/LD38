@@ -2,9 +2,9 @@ import ARRAY from './array.hbs'
 import CITY from './city.hbs'
 import EMPTY from './empty.hbs'
 import DESERT from './desert.hbs'
-import FIELD from './field.hbs'
-import FOREST from './forest.hbs'
-import ISLAND from './island.hbs'
+import ARCHIVES from './archives.hbs'
+import LABORATORY from './laboratory.hbs'
+import CLUB from './club.hbs'
 import POWER_STATION from './power-station.hbs'
 import SETTLEMENT from './settlement.hbs'
 import TWELVE from './twelve.hbs'
@@ -16,9 +16,9 @@ const locations = {
   ARRAY,
   DESERT,
   EMPTY,
-  FIELD,
-  FOREST,
-  ISLAND,
+  ARCHIVES,
+  LABORATORY,
+  CLUB,
   'POWER STATION': POWER_STATION,
   SETTLEMENT,
   TWELVE,

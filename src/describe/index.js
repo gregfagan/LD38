@@ -2,10 +2,13 @@
 
   const flatten = str => str.replace(/\s+/g, ' ')
 
+  import archives from './archives.hbs'
   import city from './city.hbs'
   import array from './array.hbs'
-  import forest from './forest.hbs'
   import vault from './vault.hbs'
+  import club from './club.hbs'
+  import laboratory from './laboratory.hbs'
+  import wastePlant from './waste-plant.hbs'
 
   import lightSwitch from './light-switch.hbs'
   import credits from './credits.hbs'
@@ -18,8 +21,11 @@
   const sectorMap = {
     CITY: city,
     ARRAY: array,
-    FOREST: forest,
-    VAULT: vault
+    VAULT: vault,
+    CLUB: club,
+    LABORATORY: laboratory,
+    ARCHIVES: archives,
+    'WASTE PLANT': wastePlant
   }
 
   const describe = (gameState, sector) =>
