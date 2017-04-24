@@ -81,7 +81,7 @@ export default class Terminal extends React.Component {
       const [last, ...rest] = result
 
       // Don't insert whitespace at the beginning of a line
-      if (last.length === 0 && token === ' ') return result
+      if (last.length >= dimensions.terminal.width && token === ' ') return result
 
       return (last.length + token.length <= dimensions.terminal.width)
         ? [last + token, ...rest]
