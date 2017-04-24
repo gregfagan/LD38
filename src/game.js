@@ -10,7 +10,7 @@ const initGame = {
   corruptionStart: 5,
   corruptionMax: 35,
   sectors: factory(),
-  inventory: ['HEADPHONES'],
+  inventory: ['HEADPHONES', 'STURDY PIPE'],
   buffer: [],
   items
 }
