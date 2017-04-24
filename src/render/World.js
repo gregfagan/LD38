@@ -82,16 +82,16 @@ export default class World extends React.Component {
       ease(t)
     )
 
-    // While we're rotating the world, these values will all resolve
-    // to their previous states.
+    // While we're rotating the world, don't update the sectors
+    const { children } = (animating ? last.props : this.props)
+
     const {
+      dispatch,
       currentSector = 0,
       terminalText = '',
       textColor = '#44aa44',
-      backgroundColor = '#112211',
-      dispatch,
-      children
-    } = (animating ? last.props : this.props)
+      backgroundColor = '#112211'
+    } = this.props
 
     return (
       <React3 mainCamera="camera"
@@ -117,14 +117,14 @@ export default class World extends React.Component {
           { React.Children.map(children, (child, i) => (
             React.cloneElement(child, {
               id: i,
-              active: i === currentSector,
+              active: !animating && i === currentSector,
               canvas: this.canvases[i],
               didRender: this.handleCanvasRender
             })
           ))}
           <Terminal text={terminalText}
             dispatch={dispatch}
-            now={!animating ? now : last.when} // don't animate while rotating
+            now={animating ? last.when : now} // don't animate while rotating
             canvas={this.canvases[currentSector]}
             id={currentSector}
             textColor={textColor}
