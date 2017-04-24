@@ -75,6 +75,8 @@ export default class World extends React.Component {
     const {
       currentSector = 0,
       terminalText = '',
+      textColor = '#44aa44',
+      backgroundColor = '#112211',
       dispatch,
       children
     } = this.props
@@ -124,6 +126,8 @@ export default class World extends React.Component {
             now={t >= 1 ? now : lastSector.when} // don't animate while rotating
             canvas={this.canvases[currentSector]}
             id={currentSector}
+            textColor={textColor}
+            backgroundColor={backgroundColor}
             didRender={this.handleCanvasRender}
           />
         </scene>

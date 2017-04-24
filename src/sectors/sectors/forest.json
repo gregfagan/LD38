@@ -4,5 +4,9 @@
   "items": ["DRONE"],
   "modifiers": {
     "paid": false
-  }
+  },
+  "glyphs": ["ː"],
+  "textColor": "#660044",
+  "backgroundColor": "#110000",
+  "backgroundTextColor": "331111"
 }

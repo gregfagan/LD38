@@ -1,61 +1,61 @@
 {
-  "name": "ld38",
-  "version": "0.0.1",
-  "description": "Ludum Dare Jam 38 game",
-  "main": "src/index.js",
-  "scripts": {
-    "start": "webpack-dev-server",
-    "build": "NODE_ENV=production webpack -p",
-    "publish": "node publish.js",
-    "dev": "TARGET=node webpack -w",
-    "lint": "eslint src"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/gregfagan/ld38.git"
-  },
-  "contributors": [
-    {
-      "name": "Greg Fagan"
-    },
-    {
-      "name": "Kyle Fagan"
-    }
-  ],
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/gregfagan/ld38/issues"
-  },
-  "homepage": "https://github.com/gregfagan/ld38#readme",
-  "devDependencies": {
-    "babel-cli": "^6.24.1",
-    "babel-core": "^6.24.1",
-    "babel-loader": "^7.0.0",
-    "babel-plugin-transform-object-rest-spread": "^6.23.0",
-    "babel-preset-env": "^1.4.0",
-    "babel-preset-react": "^6.24.1",
-    "babel-register": "^6.24.1",
-    "babel-watch": "^2.0.6",
-    "eslint": "^3.17.1",
-    "eslint-config-airbnb": "^14.1.0",
-    "eslint-plugin-import": "^2.2.0",
-    "eslint-plugin-jsx-a11y": "^4.0.0",
-    "eslint-plugin-react": "^6.10.0",
-    "handlebars": "^4.0.6",
-    "handlebars-loader": "^1.5.0",
-    "html-webpack-plugin": "^2.28.0",
-    "inquirer": "^3.0.6",
-    "nodemon": "^1.11.0",
-    "webpack": "^2.4.1",
-    "webpack-dev-server": "^2.4.2"
-  },
-  "dependencies": {
-    "d3-ease": "^1.0.3",
-    "react": "^15.5.4",
-    "react-dom": "^15.5.4",
-    "react-three-renderer": "^3.1.0",
-    "three": "^0.85.0",
-    "typesettable": "^3.1.0",
-    "webfontloader": "^1.6.27"
-  }
+	"name": "ld38",
+	"version": "0.0.1",
+	"description": "Ludum Dare Jam 38 game",
+	"homepage": "https://github.com/gregfagan/ld38#readme",
+	"bugs": {
+		"url": "https://github.com/gregfagan/ld38/issues"
+	},
+	"license": "ISC",
+	"contributors": [
+		{
+			"name": "Greg Fagan"
+		},
+		{
+			"name": "Kyle Fagan"
+		}
+	],
+	"main": "src/index.js",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/gregfagan/ld38.git"
+	},
+	"scripts": {
+		"start": "webpack-dev-server",
+		"build": "NODE_ENV=production webpack -p",
+		"publish": "node publish.js",
+		"dev": "TARGET=node webpack -w",
+		"lint": "eslint src"
+	},
+	"dependencies": {
+		"d3-ease": "^1.0.3",
+		"react": "^15.5.4",
+		"react-dom": "^15.5.4",
+		"react-three-renderer": "^3.1.0",
+		"three": "^0.85.0",
+		"typesettable": "^3.1.0",
+		"webfontloader": "^1.6.27"
+	},
+	"devDependencies": {
+		"babel-cli": "^6.24.1",
+		"babel-core": "^6.24.1",
+		"babel-loader": "^7.0.0",
+		"babel-plugin-transform-object-rest-spread": "^6.23.0",
+		"babel-preset-env": "^1.4.0",
+		"babel-preset-react": "^6.24.1",
+		"babel-register": "^6.24.1",
+		"babel-watch": "^2.0.6",
+		"eslint": "^3.17.1",
+		"eslint-config-airbnb": "^14.1.0",
+		"eslint-plugin-import": "^2.2.0",
+		"eslint-plugin-jsx-a11y": "^4.0.0",
+		"eslint-plugin-react": "^6.10.0",
+		"handlebars": "^4.0.6",
+		"handlebars-loader": "^1.5.0",
+		"html-webpack-plugin": "^2.28.0",
+		"inquirer": "^3.0.6",
+		"nodemon": "^1.11.0",
+		"webpack": "^2.4.1",
+		"webpack-dev-server": "^2.4.2"
+	}
 }
