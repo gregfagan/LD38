@@ -1,5 +1,6 @@
 import * as sectors from './sectors'
 import { values } from '@util'
+import background from './background'
 
 const base = {
   type: 'SECTOR',
@@ -28,7 +29,7 @@ const directions = ['NE', 'E', 'S', 'W', 'NW']
 const mapToExit = sMap => sMap.map((id, idx) => ({ direction: directions[idx], sector: id }))
 
 const makeSector = (idx, sector) => (
-  { ...base, idx, neighbors: mapToExit(sectorMap[idx]), ...sector }
+  { ...base, idx, neighbors: mapToExit(sectorMap[idx]), ...sector, background: background(sector.glyphs || ['.'], sector.density || 0.01) }
 )
 
 export default () => values(sectors)

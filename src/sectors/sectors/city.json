@@ -5,5 +5,7 @@
   "modifiers": {
     "power": false,
     "marked": false
-  }
+  },
+  "glyphs": ["╥", "╣", "├"],
+  "density": 0.04
 }

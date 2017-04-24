@@ -4,6 +4,7 @@ import { describeSector } from '@describe'
 import { current, addToBuffer } from '@util'
 import * as actions from '@actions'
 import * as items from '@items'
+// import dispatcher from './game'
 
 const rl = readline.createInterface({
   input: process.stdin,
@@ -17,6 +18,8 @@ const initGame = {
   buffer: [],
   items
 }
+
+// const { subscribe, dispatch } = dispatcher()
 
 const parseInput = (input) => {
   const [action, ...rest] = input.split(' ').map(i => i.toUpperCase())
@@ -53,10 +56,11 @@ const parseInput = (input) => {
 
 const performAction = (input, gameState) => {
   const { action, target } = parseInput(input)
-  return (actions[action] ? actions[action](gameState, target) : addToBuffer('Not understood.', gameState))
+  return (actions[action] ? actions[action](gameState, target) : addToBuffer('Not understood.')(gameState))
 }
 
 const q = (context, gameState) => {
+  console.log(current(gameState).background)
   context.question(`${gameState.buffer[0]}\n\n> `, (response) => {
     if (response.toUpperCase() === 'QUIT') {
       context.close()

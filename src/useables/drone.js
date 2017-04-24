@@ -1,4 +1,4 @@
-import { addToBuffer, changeSector, removeFromInventory, inInventory, atLocation, compose } from '@util'
+import { addToBuffer, changeSector, removeFromInventory, addToSector, inInventory, atLocation, compose } from '@util'
 
 export default (gameState) => {
   if (!inInventory('DRONE')(gameState)) {
@@ -8,6 +8,7 @@ export default (gameState) => {
     const changes = compose([
       changeSector('VAULT', 'guarded', false),
       removeFromInventory('DRONE'),
+      addToSector('VAULT', 'CREDITS'),
       addToBuffer('The guard runs after the drone.')
     ])
 

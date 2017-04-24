@@ -17,6 +17,12 @@ export const removeFromSector = (sectorId, item) => (gameState) => {
   return { ...gameState, sectors: { ...gameState.sectors, [sectorId]: newSector } }
 }
 
+export const addToSector = (sectorId, item) => (gameState) => {
+  const sector = gameState.sectors[sectorId]
+  const newSector = { ...sector, items: [item, ...sector.items] }
+  return { ...gameState, sectors: { ...gameState.sectors, [sectorId]: newSector } }
+}
+
 export const changeSector = (sectorId, prop, value) => (gameState) => {
   const sector = gameState.sectors[sectorId]
   const newSector = { ...sector, modifiers: { ...sector.modifiers, [prop]: value } }
@@ -27,11 +33,6 @@ export const changeItem = (itemId, prop, value) => (gameState) => {
   const item = gameState.items[itemId]
   const newItem = { ...item, modifiers: { ...item.modifiers, [prop]: value } }
   return { ...gameState, items: { ...gameState.items, [itemId]: newItem } }
-}
-
-export const setTakeable = (itemId, value) => (gameState) => {
-  const item = { ...gameState.items[itemId], takeable: value }
-  return { ...gameState, items: { ...gameState.items, [itemId]: item } }
 }
 
 export const inInventory = itemId => gameState => gameState.inventory.find(item => item === itemId)
