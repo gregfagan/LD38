@@ -1,0 +1,11 @@
+{
+  "biome": "CITY",
+  "id": "CITY",
+  "items": ["LIGHT SWITCH"],
+  "modifiers": {
+    "power": false,
+    "marked": false
+  },
+  "glyphs": ["╥", "╣", "├"],
+  "density": 0.04
+}

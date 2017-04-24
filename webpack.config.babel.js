@@ -19,6 +19,11 @@ const config = {
           presets: ['env', 'react'],
           plugins: ['transform-object-rest-spread']
         },
+      },
+      {
+        test: /.hbs$/,
+        include: path.resolve(__dirname, 'src'),
+        loader: 'raw-loader'
       }
     ]
   },
@@ -35,10 +40,21 @@ const config = {
     }),
     new webpack.optimize.CommonsChunkPlugin({ name: 'manifest' })
   ],
+  resolve: {
+    extensions: ['.js'],
+    alias: {
+      '@util': `${__dirname}/src/util`,
+      '@items': `${__dirname}/src/items`,
+      '@actions': `${__dirname}/src/actions`,
+      '@sectors': `${__dirname}/src/sectors`,
+      '@describe': `${__dirname}/src/describe`,
+      '@useables': `${__dirname}/src/useables`
+    }
+  }
 }
 
 if (process.env.NODE_ENV !== 'production') {
   config.devtool = 'source-map'
 }
 
-export default config;
+export default config
