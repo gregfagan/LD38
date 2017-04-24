@@ -5,6 +5,8 @@ import * as three from 'three'
 import { easeElasticOut } from 'd3-ease'
 
 import { rotations, updateUVs } from './dodecahedron'
+import { textureSize } from './dimensions'
+import Terminal from './Terminal'
 
 function createCanvas(resolution) {
   const canvas = document.createElement('canvas')
@@ -13,7 +15,7 @@ function createCanvas(resolution) {
   return canvas
 }
 
-const rotateDuration = 750
+const rotateDuration = 1500
 const ease = easeElasticOut.period(1.5)
 
 export default class World extends React.Component {
@@ -24,7 +26,7 @@ export default class World extends React.Component {
     this.lightPosition = new three.Vector3(-5, 5, 15)
     this.lightLookAt = new three.Vector3(0, 0, 0)
 
-    this.canvases = [...Array(12).keys()].map(i => createCanvas(512))
+    this.canvases = [...Array(12).keys()].map(i => createCanvas(textureSize))
     this.textures = this.canvases.map(c => new three.CanvasTexture(c))
     this.materials = this.textures.map(t => new three.MeshPhongMaterial({
       map: t,
@@ -71,7 +73,7 @@ export default class World extends React.Component {
     const width = window.innerWidth
     const height = window.innerHeight
 
-    const { currentSector = 0, children } = this.props
+    const { currentSector = 0, terminalText='', children } = this.props
     const { now, lastSector } = this.state
 
     const timeSinceSectorChange = now - lastSector.when
@@ -102,7 +104,7 @@ export default class World extends React.Component {
               position={this.cameraPosition}
             />
           </group>
-          <ambientLight intensity={0.5} />
+          <ambientLight intensity={0.75} />
           <directionalLight
             position={this.lightPosition}
             lookAt={this.lightLookAt}
@@ -110,12 +112,19 @@ export default class World extends React.Component {
           <group ref='mount' />
           { React.Children.map(children, (child, i) => (
             React.cloneElement(child, {
-              key: i,
               id: i,
+              active: i === currentSector,
               canvas: this.canvases[i],
               didRender: this.handleCanvasRender
             })
           ))}
+          <Terminal
+            text={terminalText}
+            now={t >= 1 ? now : lastSector.when} // don't animate while rotating
+            canvas={this.canvases[currentSector]}
+            id={currentSector}
+            didRender={this.handleCanvasRender}
+          />
         </scene>
       </React3>
     )
