@@ -6,6 +6,7 @@ import * as items from '@items'
 
 const initGame = {
   sector: 1,
+  time: 0,
   sectors: factory(),
   inventory: ['CREDITS'],
   buffer: [],

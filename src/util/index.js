@@ -1,3 +1,5 @@
+import corruption from './corruption'
+
 export const values = obj => Object.keys(obj).map(key => obj[key])
 
 export const current = gameState => values(gameState.sectors).find(sector => gameState.sector === sector.idx)
@@ -35,8 +37,9 @@ export const changeItem = (itemId, prop, value) => (gameState) => {
   return { ...gameState, items: { ...gameState.items, [itemId]: newItem } }
 }
 
+export const addTime = gameState => ({ ...gameState, time: gameState.time + 1 })
 export const inInventory = itemId => gameState => gameState.inventory.find(item => item === itemId)
 export const atLocation = sectorId => gameState => current(gameState).id === sectorId
 export const compose = fns => gameState => fns.reduce((acc, fn) => fn(acc), gameState)
-export const addToBuffer = text => gameState => ({ ...gameState, buffer: [text, ...gameState.buffer] })
+export const addToBuffer = text => gameState => ({ ...gameState, buffer: [corruption(text, gameState), ...gameState.buffer] })
 export const clearBuffer = gameState => ({ ...gameState, buffer: [] })
