@@ -14,7 +14,7 @@ function createCanvas(resolution) {
   return canvas
 }
 
-const rotateDuration = 1500
+const rotateDuration = 750
 const ease = easeElasticOut.period(1.5)
 
 export default class World extends React.Component {
@@ -33,10 +33,7 @@ export default class World extends React.Component {
     }))
 
     const now = performance.now()
-    this.state = {
-      now,
-      lastSector: { id: 0, when: now }
-    }
+    this.state = { now, last: { props, when: now } }
 
     this.animate = this.animate.bind(this)
     this.handleCanvasRender = this.handleCanvasRender.bind(this)
@@ -55,7 +52,7 @@ export default class World extends React.Component {
   componentWillReceiveProps(nextProps) {
     if (nextProps.currentSector !== this.props.currentSector) {
       this.setState({
-        lastSector: { id: this.props.currentSector, when: performance.now() }
+        last: { props: this.props, when: performance.now() }
       })
     }
   }
@@ -72,6 +69,21 @@ export default class World extends React.Component {
     const width = window.innerWidth
     const height = window.innerHeight
 
+    const { now, last } = this.state
+    const elapsedTime = now - last.when
+    const t = Math.min(1, elapsedTime / rotateDuration)
+    const animating = t < 1
+
+    const rotation = new three.Quaternion()
+    three.Quaternion.slerp(
+      rotations[last.props.currentSector],
+      rotations[this.props.currentSector],
+      rotation,
+      ease(t)
+    )
+
+    // While we're rotating the world, these values will all resolve
+    // to their previous states.
     const {
       currentSector = 0,
       terminalText = '',
@@ -79,18 +91,7 @@ export default class World extends React.Component {
       backgroundColor = '#112211',
       dispatch,
       children
-    } = this.props
-    const { now, lastSector } = this.state
-
-    const timeSinceSectorChange = now - lastSector.when
-    const t = Math.min(1, timeSinceSectorChange / rotateDuration)
-    const rotation = new three.Quaternion()
-    three.Quaternion.slerp(
-      rotations[lastSector.id],
-      rotations[currentSector],
-      rotation,
-      ease(t)
-    )
+    } = (animating ? last.props : this.props)
 
     return (
       <React3 mainCamera="camera"
@@ -123,7 +124,7 @@ export default class World extends React.Component {
           ))}
           <Terminal text={terminalText}
             dispatch={dispatch}
-            now={t >= 1 ? now : lastSector.when} // don't animate while rotating
+            now={!animating ? now : last.when} // don't animate while rotating
             canvas={this.canvases[currentSector]}
             id={currentSector}
             textColor={textColor}
