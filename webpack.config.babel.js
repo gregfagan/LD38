@@ -23,7 +23,10 @@ const config = {
       {
         test: /.hbs$/,
         include: path.resolve(__dirname, 'src'),
-        loader: 'handlebars-loader'
+        loader: 'handlebars-loader',
+        options: {
+          helperDirs: [`${__dirname}/src/util/helpers`]
+        }
       }
     ]
   },

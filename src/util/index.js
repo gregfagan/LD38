@@ -7,6 +7,7 @@ export const current = gameState => values(gameState.sectors).find(sector => gam
 export const has = (obj, prop) => Object.prototype.hasOwnProperty.call(obj, prop)
 
 export const getSector = (gameState, sectorIdx) => values(gameState.sectors).find(sector => sectorIdx === sector.idx)
+export const getSectorIndex = (gameState, sectorId) => gameState.sectors[sectorId].idx
 
 export const getItem = (gameState, id) => values(gameState.items).find(item => item.id === id)
 

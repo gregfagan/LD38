@@ -8,7 +8,7 @@ const initGame = {
   sector: 1,
   time: 0,
   sectors: factory(),
-  inventory: ['CREDITS'],
+  inventory: ['DRONE'],
   buffer: [],
   items
 }
