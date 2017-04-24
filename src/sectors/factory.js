@@ -26,11 +26,18 @@ const sectorMap = {
 
 const directions = ['NE', 'E', 'S', 'W', 'NW']
 
-const mapToExit = sMap => sMap.map((id, idx) => ({ direction: directions[idx], sector: id }))
+const mapToExit = sMap => sMap.map((id, idx) => ({
+  direction: directions[idx],
+  sector: id
+}))
 
-const makeSector = (idx, sector) => (
-  { ...base, idx, neighbors: mapToExit(sectorMap[idx]), ...sector, background: background(sector.glyphs || ['.'], sector.density || 0.01) }
-)
+const makeSector = (idx, sector) => ({
+  ...base,
+  idx,
+  neighbors: mapToExit(sectorMap[idx]),
+  ...sector,
+  background: background(sector.glyphs || ['.'], sector.density || 0.1)
+})
 
 export default () => values(sectors)
                            .reduce((acc, sector, idx) => {

@@ -1,9 +1,4 @@
   import { getSector, getItem } from '@util'
-  import Handlebars from 'handlebars'
-
-  Handlebars.registerHelper('ifIn', (elem, list, options) =>
-    (list.indexOf(elem) > -1 ? options.fn(this) : options.inverse(this))
-  )
 
   const flatten = str => str.replace(/\s+/g, ' ')
 
@@ -16,15 +11,15 @@
   import credits from './credits.hbs'
 
   const itemMap = {
-    'LIGHT SWITCH': Handlebars.compile(lightSwitch),
-    CREDITS: Handlebars.compile(credits)
+    'LIGHT SWITCH': lightSwitch,
+    CREDITS: credits
   }
 
   const sectorMap = {
-    CITY: Handlebars.compile(city),
-    ARRAY: Handlebars.compile(array),
-    FOREST: Handlebars.compile(forest),
-    VAULT: Handlebars.compile(vault)
+    CITY: city,
+    ARRAY: array,
+    FOREST: forest,
+    VAULT: vault
   }
 
   const describe = (gameState, sector) =>

@@ -2,12 +2,12 @@ import path from 'path'
 import webpack from 'webpack'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
 
+const dev = process.env.NODE_ENV !== 'production'
+const targetWeb = process.env.TARGET !== 'node'
+
 const config = {
-  entry: './src/index.js',
   output: {
     path: path.resolve(__dirname, 'build'),
-    filename: '[name].[chunkhash].js',
-    publicPath: '/LD38',
   },
   module: {
     rules: [
@@ -23,23 +23,10 @@ const config = {
       {
         test: /.hbs$/,
         include: path.resolve(__dirname, 'src'),
-        loader: 'raw-loader'
+        loader: 'handlebars-loader'
       }
     ]
   },
-  plugins: [
-    new HtmlWebpackPlugin({
-      title: 'LDJAM 38',
-      template: 'template.ejs',
-    }),
-    new webpack.optimize.CommonsChunkPlugin({
-        name: 'vendor',
-        minChunks: function (module) {
-           return module.context && module.context.indexOf('node_modules') !== -1;
-        }
-    }),
-    new webpack.optimize.CommonsChunkPlugin({ name: 'manifest' })
-  ],
   resolve: {
     extensions: ['.js'],
     alias: {
@@ -50,11 +37,42 @@ const config = {
       '@describe': `${__dirname}/src/describe`,
       '@useables': `${__dirname}/src/useables`
     }
+  },
+  devtool: dev ? 'source-map' : ''
+}
+
+const webConfig = {
+  ...config,
+  target: 'web',
+  entry: './src/index.js',
+  output: {
+    ...config.output,
+    filename: '[name].[chunkhash].js',
+    publicPath: '/LD38',
+  },
+  plugins: [
+    new HtmlWebpackPlugin({
+      title: 'LDJAM 38',
+      template: 'template.ejs',
+    }),
+    new webpack.optimize.CommonsChunkPlugin({
+      name: 'vendor',
+      minChunks: module => (
+        module.context && module.context.indexOf('node_modules') !== -1
+      )
+    }),
+    new webpack.optimize.CommonsChunkPlugin({ name: 'manifest' })
+  ]
+}
+
+const nodeConfig = {
+  ...config,
+  target: 'node',
+  entry: './src/node-runner.js',
+  output: {
+    ...config.output,
+    filename: 'test.js',
   }
 }
 
-if (process.env.NODE_ENV !== 'production') {
-  config.devtool = 'source-map'
-}
-
-export default config
+export default targetWeb ? webConfig : nodeConfig

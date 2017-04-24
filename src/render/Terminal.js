@@ -10,7 +10,7 @@ const validInput = new Set('abcdefghijklmnopqrstuvwxyz1234567890 ')
 function createWrapper(ctx) {
   const context = new CanvasContext(ctx, dimensions.lineHeight, { font: dimensions.font })
   const measurer = new CacheMeasurer(context)
-  const wrapper = new Wrapper()
+  const wrapper = new Wrapper().allowBreakingWords(false)
   return { measurer, wrapper }
 }
 
@@ -33,6 +33,7 @@ export default class Terminal extends React.Component {
     this.keylogger = document.addEventListener('keydown', (e) => {
       // console.log(`pressed ${e.key}`)
 
+      const { dispatch } = this.props
       const { input, lookBehind } = this.state
 
       if (validInput.has(e.key.toLowerCase())) {
@@ -40,7 +41,7 @@ export default class Terminal extends React.Component {
       } else if (e.key === 'Backspace') {
         this.setState({ input: input.substring(0, input.length - 1) })
       } else if (e.key === 'Enter') {
-        // TODO: dispatch input
+        dispatch(input)
         this.setState({ input: '', lookBehind: 0 })
       } else if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
         const adjustment = (e.key === 'ArrowDown' ? -1 : 1)

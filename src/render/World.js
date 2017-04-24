@@ -72,7 +72,12 @@ export default class World extends React.Component {
     const width = window.innerWidth
     const height = window.innerHeight
 
-    const { currentSector = 0, terminalText = '', children } = this.props
+    const {
+      currentSector = 0,
+      terminalText = '',
+      dispatch,
+      children
+    } = this.props
     const { now, lastSector } = this.state
 
     const timeSinceSectorChange = now - lastSector.when
@@ -115,6 +120,7 @@ export default class World extends React.Component {
             })
           ))}
           <Terminal text={terminalText}
+            dispatch={dispatch}
             now={t >= 1 ? now : lastSector.when} // don't animate while rotating
             canvas={this.canvases[currentSector]}
             id={currentSector}
