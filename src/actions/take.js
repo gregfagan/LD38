@@ -1,20 +1,17 @@
-import { current, getItem } from '@util'
+import { current, getItem, addToInventory, removeFromSector, compose, addToBuffer } from '@util'
 
 export default (gameState, target) => {
   const sector = current(gameState)
-  const hasThing = sector.items.find(item => item === target.toUpperCase())
-  const thing = hasThing ? getItem(gameState, target.toUpperCase()) : undefined
+  const hasThing = sector.items.find(item => item === target)
+  const thing = hasThing ? getItem(gameState, target) : undefined
 
-  if (thing && thing.takeable) {
-    const inventory = [...gameState.inventory, thing.id]
-    const newSector = { ...sector, items: sector.items.filter(item => item !== thing.id) }
-    const sectors = { ...gameState.sectors, [newSector.id]: newSector }
-    const newGameState = { ...gameState, sectors, inventory }
-    return { gameState: newGameState, text: `You took ${thing.shortDescription}.` }
+  if (thing && thing.modifiers.takeable) {
+    const changes = compose([addToInventory(thing.id), removeFromSector(sector.id, thing.id), addToBuffer(`You took ${thing.shortDescription}.`)])
+    return changes(gameState)
   }
 
-  if (thing && !thing.takeable) {
-    return { gameState, text: thing.rejectText ? thing.rejectText : 'You can\'t take that.' }
+  if (thing && !thing.modifiers.takeable) {
+    return addToBuffer(thing.rejectText ? thing.rejectText : 'You can\'t take that.')(gameState)
   }
-  return { gameState, text: `There isn't ${target} to be had.` }
+  return addToBuffer(`There isn't ${target} to be had.`)(gameState)
 }

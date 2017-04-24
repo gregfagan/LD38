@@ -1,0 +1,19 @@
+[{
+  "requirements": [{
+    "pass": {
+      "location": "FOREST"
+    },
+    "failText": "Your credits are no good here."
+  },
+  {
+    "pass": {
+      "inventory": { "has": ["CREDITS"] }
+    },
+    "failText": "You don't have any credits to use."
+  }],
+  "changes": {
+    "sectors": { "FOREST": { "paid": true } },
+    "items": { "DRONE": { "takeable": true } },
+    "inventory": { "remove": "CREDITS"}
+  }
+}]

@@ -6,6 +6,7 @@ const flatten = str => str.replace(/\s+/g, ' ')
 import city from './city.hbs'
 import array from './array.hbs'
 import forest from './forest.hbs'
+import vault from './vault.hbs'
 
 import lightSwitch from './light-switch.hbs'
 import credits from './credits.hbs'
@@ -18,7 +19,8 @@ const itemMap = {
 const sectorMap = {
   CITY: Handlebars.compile(city),
   ARRAY: Handlebars.compile(array),
-  FOREST: Handlebars.compile(forest)
+  FOREST: Handlebars.compile(forest),
+  VAULT: Handlebars.compile(vault)
 }
 
 const describe = (gameState, sector) =>

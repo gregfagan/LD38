@@ -2,5 +2,7 @@
   "type": "ITEM",
   "id": "CREDITS",
   "shortDescription": "CREDITS",
-  "takeable": true
+  "modifiers": {
+    "takeable": true
+  }
 }

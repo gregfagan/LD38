@@ -51,7 +51,9 @@
   * Enters a Sector at a specific time
   * Grows in Sector every x time
   * After y time after max growth, spreads to a neighbor sector
-  * Spread Path: Can start at any sector, but follows this path: 1 5 6 4 2 8 3 11 9 12 7 10 1 5 6...
+  * Spread Path: Can start at any sector, but follows this path:
+     1 5 6 4 2 8 3 11 9 12 7 10 1 5 6...
+     0 4 5 3 1 7 2 10 8 11 6 9 0 4 5...
 
 # Time
   * Moving sectors costs Time
@@ -63,3 +65,6 @@
     * Either by constructing UPLINK to new node
     * or by developing Antivirus
   * To complete quest, have to learn recipes, craft items, discover special items
+
+
+# 64 x 32

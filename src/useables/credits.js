@@ -1,26 +1,30 @@
-import { current } from '@util'
+import { addToBuffer, changeSector, changeItem, removeFromInventory, inInventory, atLocation, compose } from '@util'
+// import definition from './credits.json'
+//
+// const locationPass = locationId => gameState => current(gameState).id === locationId
+// const inventoryHasPass =
+//
+// const parseRequirements = requirements => gameState => {
+//   requirements.map()
+// }
 
 export default (gameState) => {
   // Make sure credits are in inventory
-  const credits = gameState.inventory.find(item => item === 'CREDITS')
-  if (!credits) {
-    return { gameState, text: 'You don\'t have any credits to use.' }
+  if (!inInventory('CREDITS')(gameState)) {
+    return addToBuffer('You don\'t have any credits to use.')(gameState)
   }
 
   // Make sure you are in the forest
-  if (current(gameState).id !== 'FOREST') {
-    return { gameState, text: 'You have credits, but you can\'t use them here.' }
+  if (!atLocation('FOREST')(gameState)) {
+    return addToBuffer('Your credits are no good here.')(gameState)
   }
 
-  const newForest = { ...gameState.sectors.FOREST, modifiers: { ...gameState.sectors.FOREST.modifiers, paid: true } }
-  const newDrone = { ...gameState.items.DRONE, takeable: true }
-  const newInventory = gameState.inventory.filter(item => item !== 'CREDITS')
+  const changes = compose([
+    changeSector('FOREST', 'paid', true),
+    changeItem('DRONE', 'takeable', true),
+    removeFromInventory('CREDITS'),
+    addToBuffer('The children express their thanks as they run away. You can have the DRONE!')
+  ])
 
-  return { gameState: { ...gameState,
-    sectors: { ...gameState.sectors, FOREST: newForest },
-    inventory: newInventory,
-    items: { ...gameState.items, DRONE: newDrone }
-  },
-    text: 'The children express their thanks as they run away. You can have the DRONE!'
-  }
+  return changes(gameState)
 }

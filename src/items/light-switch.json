@@ -3,8 +3,8 @@
   "id": "LIGHT SWITCH",
   "shortDescription": "a LIGHT SWITCH",
   "modifiers": {
-    "position": "off"
+    "position": "off",
+    "takeable": false
   },
-  "takeable": false,
   "rejectText": "Are you kidding? It's bolted to a wall."
 }

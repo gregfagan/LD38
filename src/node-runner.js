@@ -1,7 +1,7 @@
 import readline from 'readline'
 import { factory } from '@sectors'
 import { describeSector } from '@describe'
-import { current } from '@util'
+import { current, addToBuffer } from '@util'
 import * as actions from '@actions'
 import * as items from '@items'
 
@@ -14,12 +14,13 @@ const initGame = {
   sector: 1,
   sectors: factory(),
   inventory: ['CREDITS'],
+  buffer: [],
   items
 }
 
 const parseInput = (input) => {
-  const [action, ...rest] = input.split(' ')
-  switch (action.toUpperCase()) {
+  const [action, ...rest] = input.split(' ').map(i => i.toUpperCase())
+  switch (action) {
     case 'L':
     case 'LOOK': {
       const [, ...target] = rest
@@ -52,11 +53,11 @@ const parseInput = (input) => {
 
 const performAction = (input, gameState) => {
   const { action, target } = parseInput(input)
-  return (actions[action.toUpperCase()] ? actions[action.toUpperCase()](gameState, target) : { gameState, text: 'Not understood.' })
+  return (actions[action] ? actions[action](gameState, target) : addToBuffer('Not understood.', gameState))
 }
 
-const q = (context, { gameState, text }) => {
-  context.question(`${text}\n\n> `, (response) => {
+const q = (context, gameState) => {
+  context.question(`${gameState.buffer[0]}\n\n> `, (response) => {
     if (response.toUpperCase() === 'QUIT') {
       context.close()
     } else {
@@ -65,4 +66,4 @@ const q = (context, { gameState, text }) => {
   })
 }
 
-q(rl, { gameState: initGame, text: describeSector(current(initGame), initGame) })
+q(rl, addToBuffer(describeSector(current(initGame), initGame))(initGame))
