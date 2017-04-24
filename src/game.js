@@ -1,4 +1,3 @@
-import readline from 'readline'
 import { factory } from '@sectors'
 import { describeSector } from '@describe'
 import { current, addToBuffer } from '@util'
@@ -52,12 +51,16 @@ const performAction = (input, gameState) => {
 }
 
 export default () => {
+  let state = addToBuffer(describeSector(current(initGame), initGame))(initGame)
   const subscribers = []
 
   const next = newState => subscribers.forEach(cb => cb(newState))
 
   return {
-    subscribe: cb => subscribers.push(cb),
-    dispatch: (action, state) => next(performAction(action, state))
+    subscribe: (cb) => { subscribers.push(cb); cb(state) },
+    dispatch: (action) => {
+      state = performAction(action, state)
+      next(state)
+    }
   }
 }

@@ -1,73 +1,25 @@
 import readline from 'readline'
-import { factory } from '@sectors'
-import { describeSector } from '@describe'
-import { current, addToBuffer } from '@util'
-import * as actions from '@actions'
-import * as items from '@items'
-// import dispatcher from './game'
+import { current } from '@util'
+import dispatcher from './game'
 
 const rl = readline.createInterface({
   input: process.stdin,
   output: process.stdout
 })
 
-const initGame = {
-  sector: 1,
-  sectors: factory(),
-  inventory: ['CREDITS'],
-  buffer: [],
-  items
-}
+const { subscribe, dispatch } = dispatcher()
 
-// const { subscribe, dispatch } = dispatcher()
-
-const parseInput = (input) => {
-  const [action, ...rest] = input.split(' ').map(i => i.toUpperCase())
-  switch (action) {
-    case 'L':
-    case 'LOOK': {
-      const [, ...target] = rest
-      return { action, target: target.join(' ') }
-    }
-    case 'GO': {
-      const [target] = rest
-      return { action, target }
-    }
-    case 'TAKE': {
-      return { action, target: rest.join(' ') }
-    }
-    case 'I':
-    case 'INV':
-    case 'INVENTORY': {
-      return { action, target: rest.join(' ') }
-    }
-    case 'E':
-    case 'EX':
-    case 'EXAMINE': {
-      return { action, target: rest.join(' ') }
-    }
-    case 'USE': {
-      return { action, target: rest.join(' ') }
-    }
-    default:
-      return { action }
-  }
-}
-
-const performAction = (input, gameState) => {
-  const { action, target } = parseInput(input)
-  return (actions[action] ? actions[action](gameState, target) : addToBuffer('Not understood.')(gameState))
-}
-
-const q = (context, gameState) => {
-  console.log(current(gameState).background)
-  context.question(`${gameState.buffer[0]}\n\n> `, (response) => {
-    if (response.toUpperCase() === 'QUIT') {
-      context.close()
-    } else {
-      q(context, performAction(response, gameState))
-    }
+const q = (context) => {
+  subscribe((gameState) => {
+    console.log(current(gameState).background)
+    context.question(`${gameState.buffer[0]}\n\n> `, (response) => {
+      if (response.toUpperCase() === 'QUIT') {
+        context.close()
+      } else {
+        dispatch(response)
+      }
+    })
   })
 }
 
-q(rl, addToBuffer(describeSector(current(initGame), initGame))(initGame))
+q(rl)
