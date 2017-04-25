@@ -1,9 +1,8 @@
 {
   "biome": "POWER STATION",
   "id": "POWER STATION",
-  "items": [],
+  "items": ["LIGHT SWITCH"],
   "modifiers": {
-    "power": false,
-    "marked": false
+    "power": false
   }
 }

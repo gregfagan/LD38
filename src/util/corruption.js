@@ -1,9 +1,9 @@
 const GLYPHS = ['X', 'x']
 
-const CORRUPTION_SPEED = 0.02
+const CORRUPTION_SPEED = 0.008
 
 const sample = arr => arr[Math.floor(Math.random() * arr.length)]
-const corruptionLevel = (sector, time) => (time * CORRUPTION_SPEED * (1 / sector))
+const corruptionLevel = (sector, time) => (time * CORRUPTION_SPEED / sector)
 
   // console.log(time, sector, time / (sector * ((CORRUPTION_MAX - OFFSET) / 12))) ||
 

@@ -3,6 +3,8 @@ import CREDITS from './credits.json'
 import DRONE from './drone.json'
 import HEADPHONES from './headphones.json'
 import STURDY_PIPE from './sturdy-pipe.json'
+import SAFE from './safe.json'
+import BLUEPRINTS from './blueprints.json'
 
 
 export default {
@@ -10,5 +12,7 @@ export default {
   'STURDY PIPE': STURDY_PIPE,
   CREDITS,
   DRONE,
-  HEADPHONES
+  HEADPHONES,
+  BLUEPRINTS,
+  SAFE
 }

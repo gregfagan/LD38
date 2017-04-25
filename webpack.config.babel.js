@@ -46,7 +46,8 @@ const config = {
       '@actions': `${__dirname}/src/actions`,
       '@sectors': `${__dirname}/src/sectors`,
       '@describe': `${__dirname}/src/describe`,
-      '@useables': `${__dirname}/src/useables`
+      '@useables': `${__dirname}/src/useables`,
+      '@inputtables': `${__dirname}/src/inputtables`
     }
   },
   devtool: dev ? 'source-map' : ''

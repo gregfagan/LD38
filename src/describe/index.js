@@ -9,6 +9,7 @@
   import club from './club.hbs'
   import laboratory from './laboratory.hbs'
   import wastePlant from './waste-plant.hbs'
+  import powerStation from './power-station.hbs'
 
   import lightSwitch from './light-switch.hbs'
   import credits from './credits.hbs'
@@ -25,7 +26,8 @@
     CLUB: club,
     LABORATORY: laboratory,
     ARCHIVES: archives,
-    'WASTE PLANT': wastePlant
+    'WASTE PLANT': wastePlant,
+    'POWER STATION': powerStation
   }
 
   const describe = (gameState, sector) =>
