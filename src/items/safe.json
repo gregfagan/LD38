@@ -1,0 +1,10 @@
+{
+  "type": "ITEM",
+  "id": "SAFE",
+  "shortDescription": "a SAFE",
+  "modifiers": {
+    "takeable": false,
+    "inputtable": true
+  },
+  "rejectText": "Nah."
+}

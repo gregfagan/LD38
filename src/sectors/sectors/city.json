@@ -1,7 +1,6 @@
 {
   "biome": "CITY",
   "id": "CITY",
-  "items": ["LIGHT SWITCH"],
   "modifiers": {
     "power": false,
     "marked": false

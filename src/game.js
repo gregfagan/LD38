@@ -34,6 +34,8 @@ const parseInput = (input) => {
     case 'INVENTORY': {
       return { action, target: rest.join(' ') }
     }
+    case 'INPUT':
+      return { action, target: rest.join(' ') }
     case 'E':
     case 'EX':
     case 'EXAMINE': {
