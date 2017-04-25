@@ -44,6 +44,9 @@ const parseInput = (input) => {
     case 'USE': {
       return { action, target: rest.join(' ') }
     }
+    case 'HELP': {
+      return { action }
+    }
     default:
       return { action }
   }
