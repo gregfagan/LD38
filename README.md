@@ -4,6 +4,8 @@ A 3D text adventure game built for Ludum Dare Jam 38. We didn't quite manage the
 
 _Note: This game is unfinished and cannot be completed. Have a look around and enjoy the cool soundtrack (make sure you check your inventory!) but don't get too hung up on achieving much..._
 
+Requires a WebGL enabled browser.
+
 ## Story
 
 You live on a node in a computer world that is under threat from a memory corrupting virus. As the virus corrupts each sector, vital links to your node are being lost. You must race against time to establish an uplink that will save your node from the ultimate threat — garbage collection.
