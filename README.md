@@ -20,6 +20,7 @@ Basic text adventure commands:
 * **use** _item_ _target(optional)_: manipulate the world
 * **take** _item_: you might need to bring some things with you
 * **examine** _item_: look at things in your inventory
+* **help**: explain controls
 
 ## Making of
 
