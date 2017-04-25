@@ -1,0 +1,9 @@
+{
+  "id": "ARENA",
+  "items": [],
+  "modifiers": {
+    "wreckage": false,
+    "visits": 0,
+    "visitsUntilWreck": 2
+  }
+}

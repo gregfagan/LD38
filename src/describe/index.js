@@ -10,13 +10,15 @@
   import laboratory from './laboratory.hbs'
   import wastePlant from './waste-plant.hbs'
   import powerStation from './power-station.hbs'
-
+  import arena from './arena.hbs'
   import lightSwitch from './light-switch.hbs'
   import credits from './credits.hbs'
+  import powerCoupler from './power-coupler.hbs'
 
   const itemMap = {
     'LIGHT SWITCH': lightSwitch,
-    CREDITS: credits
+    CREDITS: credits,
+    'POWER COUPLER': powerCoupler,
   }
 
   const sectorMap = {
@@ -27,7 +29,8 @@
     LABORATORY: laboratory,
     ARCHIVES: archives,
     'WASTE PLANT': wastePlant,
-    'POWER STATION': powerStation
+    'POWER STATION': powerStation,
+    ARENA: arena,
   }
 
   const describe = (gameState, sector) =>

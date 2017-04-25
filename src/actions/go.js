@@ -1,5 +1,20 @@
 import { describeSector } from '@describe'
-import { current, getSector, clearBuffer, addToBuffer, compose, addTime } from '@util'
+import { current, getSector, addToSector, changeSector, clearBuffer, addToBuffer, compose, addTime } from '@util'
+
+const eventuallyWreckInArena = (gameState) => {
+  const arena = gameState.sectors.ARENA
+
+  if (arena.modifiers.wreckage) {
+    return gameState
+  } else if (arena.modifiers.visits >= arena.modifiers.visitsUntilWreck) {
+    return compose([
+      changeSector('ARENA', 'wreckage', true),
+      addToSector('ARENA', 'POWER COUPLER')
+    ])(gameState)
+  }
+
+  return changeSector('ARENA', 'visits', arena.modifiers.visits + 1)(gameState)
+}
 
 export default (gameState, direction) => {
   const currentSector = current(gameState)
@@ -14,6 +29,7 @@ export default (gameState, direction) => {
   const changes = compose([
     clearBuffer,
     addTime,
+    eventuallyWreckInArena,
     addToBuffer(describeSector(nextSector, gameState))
   ])
   return changes({ ...gameState, sector: nextSector.idx })
