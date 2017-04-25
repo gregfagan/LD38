@@ -3,11 +3,12 @@ import CREDITS from './credits.json'
 import DRONE from './drone.json'
 import HEADPHONES from './headphones.json'
 import STURDY_PIPE from './sturdy-pipe.json'
-
+import POWER_COUPLER from './power-coupler.json'
 
 export default {
   'LIGHT SWITCH': LIGHT_SWITCH,
   'STURDY PIPE': STURDY_PIPE,
+  'POWER COUPLER': POWER_COUPLER,
   CREDITS,
   DRONE,
   HEADPHONES
