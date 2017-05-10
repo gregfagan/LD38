@@ -1,0 +1,15 @@
+@ITEM SAFE
+
+START >>
+- $THIS.locked <- true
+- $THIS.code <- "2234"
+
+INPUT >>
+? $THIS.code is RAW$TARGET
+  - $THIS.locked <- false
+  - LABORATORY add CREDITS
+  - ((The code unlocks the safe))
+x
+? $THIS.code not RAW$TARGET
+  - ((That code does nothing {@ RAW$TARGET } and {@ $THIS.code}))
+x

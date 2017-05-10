@@ -1,8 +1,0 @@
-{
-  "type": "ITEM",
-  "id": "BLUEPRINTS",
-  "shortDescription": "a set of BLUEPRINTS",
-  "modifiers": {
-    "takeable": true
-  }
-}

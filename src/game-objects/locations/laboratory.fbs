@@ -3,6 +3,7 @@
 START >>
 - $THIS.name <- "Laboratory"
 - $THIS.idx <- 7
+- $THIS add SAFE
 - $THIS add ARCHIVES
 - $THIS add CITY
 - $THIS add CLUB

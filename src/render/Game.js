@@ -6,15 +6,11 @@ import getColors from '../colors'
 
 import track from '../audio/music.m4a'
 
-import { current, getItem } from '@util'
-import corruption from '@util/corruption'
-
 const bufferText = buffer => buffer.reduce((result, entry) => `${entry}${result.length > 0 ? '\n\n' : ''}${result}`, '')
-const listening = state => getItem(state, 'HEADPHONES').modifiers.listening
+const listening = state => state.objects.HEADPHONES.properties.listening
 
 export default ({ dispatch, ...state }) => {
   const sector = state.location
-  console.log(state.idx, bufferText(state.buffer))
   // const { textColor, backgroundColor } = undefined
   let textColor
   let backgroundColor
@@ -34,7 +30,7 @@ export default ({ dispatch, ...state }) => {
          }
 
       </World>
-      {/* <Music playing={listening(state)} src={track} /> */}
+      <Music playing={listening(state)} src={track} />
     </div>
   )
 }

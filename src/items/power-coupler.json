@@ -1,8 +1,0 @@
-{
-  "type": "ITEM",
-  "id": "POWER COUPLER",
-  "shortDescription": "a POWER COUPLER",
-  "modifiers": {
-    "takeable": true
-  }
-}

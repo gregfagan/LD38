@@ -1,8 +1,0 @@
-{
-  "type": "ITEM",
-  "id": "CREDITS",
-  "shortDescription": "CREDITS",
-  "modifiers": {
-    "takeable": true
-  }
-}
