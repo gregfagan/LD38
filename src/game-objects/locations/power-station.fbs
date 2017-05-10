@@ -1,0 +1,19 @@
+@LOCATION POWER STATION
+
+START >>
+- $THIS.name <- "Power Station"
+- $THIS.idx <- 9
+- $THIS.power <- false
+- $THIS add <LIGHT SWITCH>
+- $THIS add DESERT
+- $THIS add VAULT
+- $THIS add EMPTY
+- $THIS add <WASTE PLANT>
+- $THIS add ARENA
+
+LOOK >>
+- (({? $THIS.power is true}
+    A switch was all that was holding the power station back from humming along smoothly.{x}
+    {? $THIS.power not true}
+    The power station sparks and squeals. Something
+    is very wrong here.{x} ))

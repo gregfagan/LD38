@@ -1,0 +1,11 @@
+@ITEM LIGHT SWITCH
+
+START >>
+- $THIS.position <- "off"
+
+USE >>
+? $THIS.position is "off"
+  - $THIS.position <- "on"
+  - $LOCATION.power <- true
+  - ((You flip the power switch. Lights turn on.))
+x

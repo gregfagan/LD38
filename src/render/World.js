@@ -20,7 +20,7 @@ const ease = easeElasticOut.period(1.5)
 export default class World extends React.Component {
   constructor(props, context) {
     super(props, context)
-
+    console.log(props.currentSector, 'sdsdfsdfsd')
     this.cameraPosition = new three.Vector3(0, 0, 5)
     this.lightPosition = new three.Vector3(-5, 5, 15)
     this.lightLookAt = new three.Vector3(0, 0, 0)

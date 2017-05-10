@@ -5,7 +5,7 @@ import WebFont from 'webfontloader'
 import dispatcher from './game'
 import Game from './render/Game'
 
-const { subscribe, dispatch } = dispatcher()
+const { subscribe, dispatch } = dispatcher
 
 function render(state) {
   ReactDOM.render(

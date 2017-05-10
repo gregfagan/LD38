@@ -1,0 +1,12 @@
+@ITEM DRONE
+
+USE >>
+? $LOCATION is VAULT
+  - VAULT.guarded <- false
+  - VAULT add CREDITS
+  - $INVENTORY remove $THIS
+  - (('The guard runs after the drone.'))
+x
+? $LOCATION not VAULT
+  - ((You'll lose it.))
+x

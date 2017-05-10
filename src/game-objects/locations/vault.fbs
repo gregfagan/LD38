@@ -1,0 +1,20 @@
+@LOCATION VAULT
+
+START >>
+- $THIS.name <- "Vault"
+- $THIS.idx <- 4
+- $THIS.guarded <- true
+- $THIS add DESERT
+- $THIS add ARCHIVES
+- $THIS add LABORATORY
+- $THIS add EMPTY
+- $THIS add <POWER STATION>
+
+LOOK >>
+- (({? $THIS.guarded is true}
+      A guard stands before you. "You may not enter here," they say.{x}
+    {? $THIS.guarded not true}
+      {? $THIS has CREDITS }
+        The vault is full of sweet creds.{x}
+      {? $THIS lacks CREDITS }
+        The vault is empty.{x}{x}))

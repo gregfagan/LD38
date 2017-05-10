@@ -1,0 +1,10 @@
+@LOCATION EMPTY
+
+START >>
+- $THIS.name <- "Empty"
+- $THIS.idx <- 5
+- $THIS add VAULT
+- $THIS add LABORATORY
+- $THIS add CLUB
+- $THIS add <WASTE PLANT>
+- $THIS add <POWER STATION>

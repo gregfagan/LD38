@@ -1,0 +1,10 @@
+@LOCATION SETTLEMENT
+
+START >>
+- $THIS.name <- "Settlement"
+- $THIS.idx <- 10
+- $THIS add CITY
+- $THIS add ARRAY
+- $THIS add ARENA
+- $THIS add <WASTE PLANT>
+- $THIS add CLUB

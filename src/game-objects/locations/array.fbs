@@ -1,0 +1,16 @@
+@LOCATION ARRAY
+
+START >>
+- $THIS.name <- "Array"
+- $THIS.idx <- 2
+- $THIS add CITY
+- $THIS add ARCHIVES
+- $THIS add DESERT
+- $THIS add ARENA
+- $THIS add SETTLEMENT
+
+LOOK >>
+- (({? <POWER STATION>.power is true}The array glows.
+    The panels illuminate with the code B4TT.{x}
+    {? <POWER STATION>.power is false}The array is dead.
+    Seems to need... power.{x} ))

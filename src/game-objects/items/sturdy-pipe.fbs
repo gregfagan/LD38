@@ -1,0 +1,9 @@
+@ITEM STURDY PIPE
+
+USE >>
+? $LOCATION is <WASTE PLANT>
+  - $LOCATION.running <- false
+  - $INVENTORY remove $THIS
+  - ((You jam the pipe into the waste
+      recycler. It shudders. Stops.))
+x

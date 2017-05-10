@@ -1,0 +1,19 @@
+@LOCATION ARENA
+
+START >>
+- $THIS.name <- "Arena"
+- $THIS.wreckage <- false
+- $THIS.visits <- 0
+- $THIS.visitsUntilWreck <- 2
+- $THIS.idx <- 11
+- $THIS add ARRAY
+- $THIS add DESERT
+- $THIS add <POWER STATION>
+- $THIS add <WASTE PLANT>
+- $THIS add SETTLEMENT
+
+LOOK >>
+- ((A vast arena surrounds you. Near the center,
+    brightly glowing pods are engaged in a fast paced combat sport.
+    {? $THIS.wreckage is true } One of the pods has been severely damaged
+    and lies in a heap of debris. {x} ))

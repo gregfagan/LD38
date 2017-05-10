@@ -8,7 +8,7 @@ const rl = readline.createInterface({
   output: process.stdout
 })
 
-const { subscribe, dispatch } = dispatcher()
+const { subscribe, dispatch } = dispatcher
 
 const q = (context) => {
   subscribe((gameState) => {

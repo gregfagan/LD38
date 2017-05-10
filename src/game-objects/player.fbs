@@ -1,0 +1,4 @@
+@PLAYER PLAYER
+
+START >>
+- $THIS.name <- "Player"

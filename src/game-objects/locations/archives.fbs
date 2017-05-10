@@ -1,0 +1,10 @@
+@LOCATION ARCHIVES
+
+START >>
+- $THIS.name <- "Archives"
+- $THIS.idx <- 6
+- $THIS add ARRAY
+- $THIS add CITY
+- $THIS add LABORATORY
+- $THIS add VAULT
+- $THIS add DESERT

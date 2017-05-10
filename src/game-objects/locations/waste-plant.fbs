@@ -1,0 +1,15 @@
+@LOCATION WASTE PLANT
+
+START >>
+- $THIS.name <- "Waste Plant"
+- $THIS.idx <- 12
+- $THIS add CLUB
+- $THIS add SETTLEMENT
+- $THIS add ARENA
+- $THIS add <POWER STATION>
+- $THIS add EMPTY
+
+LOOK >>
+- ((This here is waste plant. {? $THIS.running is true}
+  It's a churnin'.{x}
+  {? $THIS.running not true}It's stopped.{x}))

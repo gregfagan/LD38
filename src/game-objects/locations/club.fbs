@@ -1,0 +1,13 @@
+@LOCATION CLUB
+
+START >>
+- $THIS.name <- "Club"
+- $THIS.idx <- 8
+- $THIS add LABORATORY
+- $THIS add CITY
+- $THIS add SETTLEMENT
+- $THIS add <WASTE PLANT>
+- $THIS add EMPTY
+
+LOOK >>
+- ((Whump whump whump whump. The dancefloor is crowded.))

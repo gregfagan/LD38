@@ -1,0 +1,15 @@
+@ITEM HEADPHONES
+
+START >>
+- $THIS.listening <- false
+
+USE >>
+? $THIS.listening is true
+  - $THIS.listening <- false
+  - ((You remove the headphones from your head.
+      Anxiety builds within you, nearly reaching despair.))
+x
+? $THIS.listening is false
+  - $THIS.listening <- true
+  - ((You jam along to the music. A feeling of hope swells inside you.))
+x

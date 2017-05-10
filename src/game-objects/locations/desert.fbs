@@ -1,0 +1,10 @@
+@LOCATION DESERT
+
+START >>
+- $THIS.name <- "Desert"
+- $THIS.idx <- 3
+- $THIS add ARRAY
+- $THIS add ARCHIVES
+- $THIS add VAULT
+- $THIS add <POWER STATION>
+- $THIS add ARENA

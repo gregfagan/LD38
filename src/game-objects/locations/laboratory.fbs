@@ -1,0 +1,13 @@
+@LOCATION LABORATORY
+
+START >>
+- $THIS.name <- "Laboratory"
+- $THIS.idx <- 7
+- $THIS add ARCHIVES
+- $THIS add CITY
+- $THIS add CLUB
+- $THIS add EMPTY
+- $THIS add VAULT
+
+LOOK >>
+- ((Data bits bubble through flasks and pipes. The laboratory smells of tech chems.))

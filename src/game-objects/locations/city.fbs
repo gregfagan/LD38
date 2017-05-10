@@ -1,0 +1,20 @@
+@LOCATION CITY
+
+START >>
+- $THIS.name <- "City"
+- $THIS.power <- false
+- $THIS.idx <- 1
+- $THIS add LABORATORY
+- $THIS add ARCHIVES
+- $THIS add ARRAY
+- $THIS add SETTLEMENT
+- $THIS add CLUB
+
+LOOK >>
+- ((You see a shining city. Spotless and immaculate.
+{? <POWER STATION>.power is true }
+  You hear the hum of electricty powering the grid.
+{x}
+{? <POWER STATION>.power not true }
+  You notice that no lights seem to work.
+{x}))

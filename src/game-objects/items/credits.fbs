@@ -1,0 +1,10 @@
+@ITEM CREDITS
+
+USE >>
+- DRONE.takeable <- true
+- $INVENTORY remove $THIS
+- ((The children express their thanks
+    as they run away. You can have the DRONE!))
+
+LOOK >>
+- ((It's like money, but in computerland.))
