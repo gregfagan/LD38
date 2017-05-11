@@ -1,5 +1,8 @@
 @ITEM CREDITS
 
+START >>
+- $THIS.takeable <- true
+
 USE >>
 - DRONE.takeable <- true
 - $INVENTORY remove $THIS
