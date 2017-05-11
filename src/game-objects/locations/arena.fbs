@@ -16,4 +16,12 @@ LOOK >>
 - ((A vast arena surrounds you. Near the center,
     brightly glowing pods are engaged in a fast paced combat sport.
     {? $THIS.wreckage is true } One of the pods has been severely damaged
-    and lies in a heap of debris. {x} ))
+    and lies in a heap of debris.{~}
+    You have been here {@ $THIS.visits} times. {x} ))
+
+EXIT >>
+? $THIS.visits >= $THIS.visitsUntilWreck
+  - $THIS.wreckage <- true
+~
+  - $THIS.visits <- $THIS.visits + 1
+x
