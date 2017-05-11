@@ -8,4 +8,8 @@ USE >>
   - $THIS.position <- "on"
   - $LOCATION.power <- true
   - ((You flip the power switch. Lights turn on.))
+~
+  - $THIS.position <- "off"
+  - $LOCATION.power <- false
+  - ((You flip the power switch. Lights turn off.))
 x

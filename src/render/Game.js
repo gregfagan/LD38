@@ -10,7 +10,6 @@ const bufferText = buffer => buffer.reduce((result, entry) => `${entry}${result.
 const listening = state => state.objects.HEADPHONES.properties.listening
 
 export default ({ dispatch, ...state }) => {
-  const sector = state.location
   // const { textColor, backgroundColor } = undefined
   let textColor
   let backgroundColor

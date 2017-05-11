@@ -1,4 +1,4 @@
 @PLAYER PLAYER
 
 START >>
-- $THIS.name <- "Player"
+- $THIS add HEADPHONES
