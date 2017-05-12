@@ -3,10 +3,11 @@ import middleware from './middleware'
 import program from './program.json'
 import initalState from './state.json'
 
-const fbs = processor(program)
+const { middleware: fbs, props } = processor(program)
 const game = createGame(
   { ...initalState, location: 'CITY' },
   [...middleware, fbs]
 )
 game.dispatch('start')
+export { props }
 export default game

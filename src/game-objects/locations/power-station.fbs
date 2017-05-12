@@ -1,5 +1,9 @@
 @LOCATION POWER STATION
 
+:.backgroundColor (({? <POWER STATION>.power is true} #2d2d2d {~} #001010 {x}))
+:.textColor ((#6bb4e3))
+:.backgroundTextColor (({? <POWER STATION>.power is true} #94acab {~} #232d2d {x}))
+
 START >>
 - $THIS.name <- "Power Station"
 - $THIS.idx <- 9

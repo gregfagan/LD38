@@ -1,5 +1,8 @@
 @LOCATION ARENA
 
+:.backgroundColor ((#453992))
+:.textColor ((#fff))
+
 START >>
 - $THIS.name <- "Arena"
 - $THIS.wreckage <- false

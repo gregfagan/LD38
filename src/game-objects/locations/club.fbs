@@ -1,5 +1,9 @@
 @LOCATION CLUB
 
+:.backgroundColor (( #214a3a ))
+:.textColor ((#3c0312))
+:.backgroundTextColor ((#022619))
+
 START >>
 - $THIS.name <- "Club"
 - $THIS.idx <- 8

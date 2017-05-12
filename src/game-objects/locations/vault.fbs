@@ -1,5 +1,9 @@
 @LOCATION VAULT
 
+:.backgroundColor (( #022102 ))
+:.textColor ((#a6c3aa))
+:.backgroundTextColor ((#4b370f))
+
 START >>
 - $THIS.name <- "Vault"
 - $THIS.idx <- 4

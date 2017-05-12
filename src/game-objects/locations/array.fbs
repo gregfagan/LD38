@@ -1,5 +1,9 @@
 @LOCATION ARRAY
 
+:.backgroundColor ((#211b1b))
+:.textColor ((#9de0ad))
+:.backgroundTextColor ((#547980))
+
 START >>
 - $THIS.name <- "Array"
 - $THIS.idx <- 2

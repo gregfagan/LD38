@@ -1,5 +1,9 @@
 @LOCATION LABORATORY
 
+:.backgroundColor (( #022102 ))
+:.textColor ((#a6c3aa))
+:.backgroundTextColor ((#4b370f))
+
 START >>
 - $THIS.name <- "Laboratory"
 - $THIS.idx <- 7

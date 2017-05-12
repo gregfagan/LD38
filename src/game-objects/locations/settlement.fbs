@@ -1,5 +1,9 @@
 @LOCATION SETTLEMENT
 
+:.backgroundColor (( #022102 ))
+:.textColor ((#a6c3aa))
+:.backgroundTextColor ((#4b370f))
+
 START >>
 - $THIS.name <- "Settlement"
 - $THIS.idx <- 10

@@ -13,3 +13,9 @@ x
 ? $THIS.code not RAW$TARGET
   - ((That code does nothing {@ RAW$TARGET } and {@ $THIS.code}))
 x
+
+USE >>
+- (( Try to INPUT something instead. ))
+
+LOOK >>
+- (( The safe has a numeric keypad on it.))
