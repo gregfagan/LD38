@@ -15,7 +15,7 @@ START >>
 - $THIS add CLUB
 
 LOOK >>
-- ((You see a shining city. Spotless and immaculate.
+- ((You see a shining city. JWin lives here. Spotless and immaculate.
 {? <POWER STATION>.power is true }
   You hear the hum of electricty powering the grid.
 {x}

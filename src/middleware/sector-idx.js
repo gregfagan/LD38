@@ -1,10 +1,10 @@
 export default (next, select) => (action, state) => {
   let newState = next(action, state)
   if (action.type === 'START') {
-    const objects = select('$OBJECTS', state).get()
+    const objects = select('$OBJECTS', newState).get()
     const sectors = Object.keys(objects).map(key => objects[key]).filter(obj => obj.type === 'LOCATION')
-    const s = select('$GLOBAL.sectors', state).set(sectors.sort((a, b) => (a.properties.idx > b.properties.idx ? 1 : -1)))
-    // console.log(sectors)
+    const s = select('$GLOBAL.sectors', newState).set(sectors.sort((a, b) => (a.properties.idx > b.properties.idx ? 1 : -1)))
+    console.log(sectors)
     newState = next(action, s)
   }
   if (action.type === 'START' || action.type === 'GO') {

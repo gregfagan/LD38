@@ -25,7 +25,7 @@ export default ({ dispatch, ...state }) =>
            state.sectors
                  .map(s => <Sector key={s.properties.idx}
                                   {...getColors(s.id, state)}
-                                  //  text={corruption(s.background, state)}
+                                  text={s.properties.backgroundText}
                                 />)
          }
 

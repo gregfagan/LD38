@@ -24,13 +24,13 @@ export default class Sector extends React.Component {
       <CanvasRenderer onRender={(canvas) => {
         const { width, height } = canvas
         const ctx = canvas.getContext('2d')
-        ctx.fillStyle = this.props.backgroundColor
+        ctx.fillStyle = backgroundColor
         ctx.fillRect(0, 0, width, height)
 
         const charsPerLine = width / dimensions.charWidth
 
         ctx.font = dimensions.font
-        ctx.fillStyle = backgroundColor
+        ctx.fillStyle = backgroundTextColor
         for (let i = 0; i < text.length; i += 1) {
           const x = (i % charsPerLine) * dimensions.charWidth
           const y = (1 + Math.floor(i / charsPerLine)) * dimensions.lineHeight

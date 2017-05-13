@@ -11,7 +11,7 @@ INPUT >>
   - ((The code unlocks the safe))
 x
 ? $THIS.code not RAW$TARGET
-  - ((That code does nothing {@ RAW$TARGET } and {@ $THIS.code}))
+  - ((That code does nothing.))
 x
 
 USE >>

@@ -22,9 +22,12 @@ LOOK >>
     and lies in a heap of debris.{~}
     You have been here {@ $THIS.visits} times. {x} ))
 
-EXIT >>
-? $THIS.visits >= $THIS.visitsUntilWreck
+ENTER >>
+? $THIS.visits === $THIS.visitsUntilWreck
   - $THIS.wreckage <- true
-~
-  - $THIS.visits <- $THIS.visits + 1
+x
+
+EXIT >>
+?
+ - $THIS.visits <- $THIS.visits + 1
 x
