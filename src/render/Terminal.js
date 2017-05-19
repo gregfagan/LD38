@@ -5,6 +5,12 @@ import CanvasRenderer from './CanvasRenderer'
 
 const blinkRate = 750
 const validInput = new Set('abcdefghijklmnopqrstuvwxyz1234567890 ')
+const arrowUpKeys = new Set(['ArrowUp', 'Up'])
+const arrowDownKeys = new Set(['ArrowDown', 'Down'])
+const arrowKeys = Array.from(arrowUpKeys).reduce(
+  (current, next) => current.add(next),
+  new Set(arrowDownKeys.values())
+)
 
 export default class Terminal extends React.Component {
   constructor(props, context) {
@@ -29,12 +35,13 @@ export default class Terminal extends React.Component {
       if (validInput.has(e.key.toLowerCase())) {
         this.setState({ input: input + e.key })
       } else if (e.key === 'Backspace') {
+        e.preventDefault() // Prevent page navigation
         this.setState({ input: input.substring(0, input.length - 1) })
       } else if (e.key === 'Enter') {
         dispatch(input)
         this.setState({ input: '', lookBehind: 0 })
-      } else if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
-        const adjustment = (e.key === 'ArrowDown' ? -1 : 1)
+      } else if (arrowKeys.has(e.key)) {
+        const adjustment = (arrowDownKeys.has(e.key) ? -1 : 1)
         const maxLookBehind = this.wrappedLines.length - dimensions.terminal.outputHeight
         this.setState({
           lookBehind: Math.min(maxLookBehind, Math.max(0, lookBehind + adjustment))
