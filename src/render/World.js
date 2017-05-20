@@ -1,7 +1,7 @@
 import React from 'react'
 import React3 from 'react-three-renderer'
 import * as three from 'three'
-import { easeElasticOut } from 'd3-ease'
+import { easeBackInOut} from 'd3-ease'
 
 import { rotations, updateUVs } from './dodecahedron'
 import { textureSize } from './dimensions'
@@ -14,14 +14,17 @@ function createCanvas(resolution) {
   return canvas
 }
 
-const rotateDuration = 750
-const ease = easeElasticOut.period(1.5)
+const rotateDuration = 3000
+const easeRotation = easeBackInOut.overshoot(2)
+const baseCameraDistance = 5
+const cameraZoomMagnitude = 3
+const pingpong = t => t < 0.5 ? (2 * t) : (1 - (2 * (t - 0.5)))
+const easeZoom = t => cameraZoomMagnitude * easeBackInOut.overshoot(2.5)(pingpong(t))
 
 export default class World extends React.Component {
   constructor(props, context) {
     super(props, context)
 
-    this.cameraPosition = new three.Vector3(0, 0, 5)
     this.lightPosition = new three.Vector3(-5, 5, 15)
     this.lightLookAt = new three.Vector3(0, 0, 0)
 
@@ -33,7 +36,7 @@ export default class World extends React.Component {
     }))
 
     const now = performance.now()
-    this.state = { now, last: { props, when: now } }
+    this.state = { now, last: { props, when: now - rotateDuration } }
 
     this.animate = this.animate.bind(this)
     this.handleCanvasRender = this.handleCanvasRender.bind(this)
@@ -75,11 +78,19 @@ export default class World extends React.Component {
     const animating = t < 1
 
     const rotation = new three.Quaternion()
+    // Rotate the camera based on sector and animation
     three.Quaternion.slerp(
       rotations[last.props.currentSector],
       rotations[this.props.currentSector],
       rotation,
-      ease(t)
+      easeRotation(t)
+    )
+
+    // Zoom the camera based on animation
+    const position = new three.Vector3(
+      0,
+      0,
+      baseCameraDistance + easeZoom(t)
     )
 
     // While we're rotating the world, don't update the sectors
@@ -106,7 +117,7 @@ export default class World extends React.Component {
               aspect={width / height}
               near={0.1}
               far={1000}
-              position={this.cameraPosition}
+              position={position}
             />
           </group>
           <ambientLight intensity={0.5} />
