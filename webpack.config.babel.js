@@ -16,7 +16,7 @@ const config = {
         include: path.resolve(__dirname, 'src'),
         loader: 'babel-loader',
         options: {
-          presets: ['env', 'react'],
+          presets: ['env'],
           plugins: ['transform-object-rest-spread']
         },
       },
