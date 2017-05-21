@@ -8,8 +8,12 @@
       * { padding: 0px; margin: 0px; }
       body { overflow: hidden; background-color: black; }
     </style>
+    <script type="text/javascript" src="<%= htmlWebpackPlugin.files.chunks.manifest.entry %>"></script>
+    <script type="text/javascript" src="<%= htmlWebpackPlugin.files.chunks.vendor.entry %>"></script>
+    <script type="text/javascript" src="<%= htmlWebpackPlugin.files.chunks.head.entry %>"></script>
   </head>
   <body>
-    <div id="app"/>
+    <div id="scene"></div>
+    <script type="text/javascript" src="<%= htmlWebpackPlugin.files.chunks.app.entry %>"></script>
   </body>
 </html>

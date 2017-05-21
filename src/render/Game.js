@@ -1,6 +1,3 @@
-import React from 'react'
-import World from './World'
-import Sector from './Sector'
 import Music from './Music'
 import getColors from '../colors'
 

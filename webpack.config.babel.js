@@ -21,6 +21,10 @@ const config = {
         },
       },
       {
+        test: /src.*.html/,
+        loader: 'html-loader'
+      },
+      {
         test: /.hbs$/,
         include: path.resolve(__dirname, 'src'),
         loader: 'handlebars-loader',
@@ -56,7 +60,10 @@ const config = {
 const webConfig = {
   ...config,
   target: 'web',
-  entry: './src/index.js',
+  entry: {
+    head: './src/head.js',
+    app: './src/index.js',
+  },
   output: {
     ...config.output,
     filename: '[name].[chunkhash].js',
@@ -64,8 +71,9 @@ const webConfig = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      title: 'LDJAM 38',
+      title: 'technoglyph',
       template: 'template.ejs',
+      inject: false,
     }),
     new webpack.optimize.CommonsChunkPlugin({
       name: 'vendor',
@@ -73,7 +81,9 @@ const webConfig = {
         module.context && module.context.indexOf('node_modules') !== -1
       )
     }),
-    new webpack.optimize.CommonsChunkPlugin({ name: 'manifest' })
+    new webpack.optimize.CommonsChunkPlugin({
+      name: 'manifest'
+    })
   ]
 }
 
