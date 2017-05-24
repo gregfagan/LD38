@@ -31,7 +31,6 @@
     "aframe": "^0.5.0",
     "d3-ease": "^1.0.3",
     "howler": "^2.0.3",
-    "three": "^0.85.0",
     "webfontloader": "^1.6.27"
   },
   "devDependencies": {
