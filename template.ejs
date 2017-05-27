@@ -10,6 +10,8 @@
     </style>
   </head>
   <body>
-    <%= htmlWebpackPlugin.options.injectAssets.scene %>
+    <div id="scene">
+      <%= require('./src/render/scene.html') %>
+    </div>
   </body>
 </html>

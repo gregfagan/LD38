@@ -1,7 +1,6 @@
 import path from 'path'
 import webpack from 'webpack'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
-import HtmlWebpackInjectAssetsPlugin from './src/util/helpers/html-webpack-inject-assets-plugin'
 
 const dev = process.env.NODE_ENV !== 'production'
 const targetWeb = process.env.TARGET !== 'node'
@@ -59,7 +58,6 @@ const webConfig = {
   target: 'web',
   entry: {
     head: './src/head.js',
-    scene: './src/render/scene.html',
   },
   output: {
     ...config.output,
@@ -72,14 +70,7 @@ const webConfig = {
       ...config.module.rules,
       {
         test: /src\/.*.html/,
-        use: [
-          {
-            loader: 'file-loader',
-            options: { name: '[name].[ext]' }
-          },
-          'extract-loader',
-          'html-loader'
-        ]
+        loader: 'html-loader'
       },
     ]
   },
@@ -97,15 +88,7 @@ const webConfig = {
       // initialization methods. See src/render/components/game for an example.
       //
       inject: 'head',
-      // The scene is first included as a chunk (webConfig.entry.scene), which
-      // runs it through the html, extract, and file loaders. That process adds
-      // a 'scene.html' asset in the build. The chunk is not necessary to include
-      // in the runtime, because we will inject the result directly into the
-      // HtmlWebpackPlugin output with the InjectAssets plugin.
-      excludeChunks: ['scene'],
-      injectAssets: { scene: 'scene.html' }
     }),
-    new HtmlWebpackInjectAssetsPlugin(),
     new webpack.optimize.CommonsChunkPlugin({
       name: 'vendor',
       minChunks: module => (
