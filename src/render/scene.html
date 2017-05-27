@@ -1,15 +1,29 @@
-<a-scene vr-mode-ui="enabled: false" stats>
+<a-scene vr-mode-ui="enabled: false" stats="false">
   <a-sky color="#454545"></a-sky>
   <a-dodecahedron
-    color="#00cc77"
+    id="world"
+    color="#28352A"
     material="flatShading: true;"
-    face-normals
-  ></a-dodecahedron>
+    face-normals="visualize: false;"
+  >
+    <a-entity view-face="selector: #world; distance: 0.8; backwards: true;">
+      <a-entity id="terminal"
+                game
+                position="0 0.25 0"
+                text="
+                  color: #C2FFC5;
+                  baseline: top;
+                  width: 0.75;
+                  wrapCount: 60;
+                  font: https://cdn.aframe.io/fonts/SourceCodePro.fnt;
+                ">
+      </a-entity>
+    </a-dodecahedron>
+    </a-entity>
+
   <a-camera
-    position="0 0 10"
-    fov="15"
+    view-face="selector: #world; backwards: true;"
+    fov="7"
     user-height="0"
-    wasd-controls-enabled="false"
-    look-controls-enabled="false"
   ></a-camera>
 </a-scene>

@@ -2,4 +2,4 @@
 //
 // Other libraries or a-frame components could go here.
 import 'aframe'
-import './render/components/face-normals'
+import './render/components'

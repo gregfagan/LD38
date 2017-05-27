@@ -32,7 +32,7 @@ function getNormals(mesh) {
 }
 
 registerComponent('face-normals', {
-  schema: {},
+  schema: { visualize: { default: false } },
   dependencies: ['geometry'],
 
   init() {
@@ -43,16 +43,43 @@ registerComponent('face-normals', {
       // TODO: is this easily avoidable?
       el.setAttribute('geometry', 'buffer', false)
       const mesh = el.getObject3D('mesh')
-      const normals = getNormals(mesh)
-      const geometry = new THREE.Geometry()
-      const zero = new THREE.Vector3()
-      normals.forEach((n) => geometry.vertices.push(zero, n))
-      this.lines = new THREE.LineSegments(geometry, MATERIAL)
-      el.setObject3D('normals', this.lines)
+      this.normals = getNormals(mesh)
+    }
+  },
+
+  update(oldData) {
+    if (oldData.visualize !== this.data.visualize) {
+      this.updateVisualization()
     }
   },
 
   remove() {
-    this.el.removeObject3D('normals')
+    this.el.removeObject3D(this.attrName)
+  },
+
+  getNormals() {
+    return this.normals
+  },
+
+  updateVisualization() {
+    const el = this.el
+    const currentVis = el.getObject3D(this.attrName)
+    if (this.data.visualize && !currentVis) {
+      this.generateVisualizationIfNeeded()
+      if (this.visualization) {
+        el.setObject3D(this.attrName, this.visualization)
+      }
+    } else if (currentVis) {
+      el.removeObject3D(this.attrName)
+    }
+  },
+
+  generateVisualizationIfNeeded() {
+    if (!this.visualization && this.normals) {
+      const geometry = new THREE.Geometry()
+      const zero = new THREE.Vector3()
+      this.normals.forEach(n => geometry.vertices.push(zero, n))
+      this.visualization = new THREE.LineSegments(geometry, MATERIAL)
+    }
   }
 })
