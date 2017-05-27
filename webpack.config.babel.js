@@ -69,7 +69,7 @@ const webConfig = {
     rules: [
       ...config.module.rules,
       {
-        test: /src\/.*.html/,
+        test: /.html$/,
         loader: 'html-loader'
       },
     ]
