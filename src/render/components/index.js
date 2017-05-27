@@ -1,3 +1,3 @@
 import './game'
 import './face-normals'
-import './view-face'
+import './align-to-face'

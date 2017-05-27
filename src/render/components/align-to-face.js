@@ -1,18 +1,18 @@
 import { THREE, registerComponent, utils } from 'aframe'
 
 const { debug } = utils
-const warn = debug('techoglyph:view-face:warn')
+const warn = debug('techoglyph:align-to-face:warn')
 
-registerComponent('view-face', {
+registerComponent('align-to-face', {
   schema: {
     // Distance from the center (not the face) of the target
     distance: { type: 'number', default: 10 },
 
     // Someimtes you want to look away from the object
-    backwards: { type: 'boolean', default: false },
+    facingTarget: { type: 'boolean', default: true },
 
     // Which face index to view -- these are indexes into the normals given
-    // from the getNormals() function, which only returns the set of unique
+    // from the face-normals component, which only returns the set of unique
     // normals for the mesh. This gives a simple list of unique faces on a
     // regular polyhedron.
     faceIndex: { type: 'int', default: 0 },
@@ -32,14 +32,14 @@ registerComponent('view-face', {
   },
 
   update(oldData) {
-    const { selector, distance, faceIndex, backwards } = this.data
+    const { selector, distance, faceIndex, facingTarget } = this.data
 
     if (selector !== oldData.selector) {
       this.normals = null
       this.recalculateNormals()
     } else if (distance !== oldData.distance ||
                faceIndex !== oldData.faceIndex ||
-               backwards !== oldData.backwards) {
+               facingTarget !== oldData.facingTarget) {
       this.reposition()
     }
   },
@@ -66,7 +66,7 @@ registerComponent('view-face', {
     return function reposition() {
       const el = this.el
       const { normals } = this
-      const { selector, distance, faceIndex, backwards } = this.data
+      const { selector, distance, faceIndex, facingTarget } = this.data
       const target = document.querySelector(selector)
 
       if (!target || !normals || faceIndex > normals.length) {
@@ -88,7 +88,7 @@ registerComponent('view-face', {
 
       // Turn around, some things want to point in the opposite direction
       // (camera, for one)
-      if (backwards) {
+      if (!facingTarget) {
         el.object3D.rotation.x += Math.PI
         el.object3D.rotation.z += Math.PI
       }

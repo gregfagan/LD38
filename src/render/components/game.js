@@ -16,8 +16,8 @@ registerComponent('game', {
     el.addEventListener('textfontset', () => {
       subscribe((state) => {
         el.setAttribute('text', 'value', bufferText(state.buffer))
-        document.querySelectorAll('[view-face]').forEach(
-          entity => entity.setAttribute('view-face', 'faceIndex', state.sector - 1)
+        document.querySelectorAll('[align-to-face]').forEach(
+          entity => entity.setAttribute('align-to-face', 'faceIndex', state.sector - 1)
         )
       })
     })

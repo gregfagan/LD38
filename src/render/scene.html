@@ -6,7 +6,10 @@
     material="flatShading: true;"
     face-normals="visualize: false;"
   >
-    <a-entity view-face="selector: #world; distance: 0.8; backwards: true;">
+    <a-entity align-to-face="
+                selector: #world;
+                distance: 0.8;
+                facingTarget: false;">
       <a-entity id="terminal"
                 game
                 position="0 0.25 0"
@@ -18,11 +21,10 @@
                   font: https://cdn.aframe.io/fonts/SourceCodePro.fnt;
                 ">
       </a-entity>
-    </a-dodecahedron>
     </a-entity>
-
+  </a-dodecahedron>
   <a-camera
-    view-face="selector: #world; backwards: true;"
+    align-to-face="selector: #world; facingTarget: false;"
     fov="7"
     user-height="0"
   ></a-camera>
