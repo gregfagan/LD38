@@ -1,26 +1,30 @@
 import { registerComponent } from 'aframe'
 import dispatcher from '../../game'
 
-const { subscribe, dispatch } = dispatcher()
-const bufferText = buffer => buffer.reduce((result, entry) => `${entry}${result.length > 0 ? '\n\n' : ''}${result}`, '')
-
 registerComponent('game', {
   dependencies: ['text'],
   schema: {},
 
   init() {
+    const { subscribe, dispatch } = dispatcher()
     this.dispatch = dispatch
     const el = this.el
-    // Wait until the font is loaded to start, otherwise text won't
-    // update properly.
+    // Wait until the font is loaded to start, otherwise text won't update properly.
     el.addEventListener('textfontset', () => {
-      subscribe((state) => {
-        el.setAttribute('text', 'value', bufferText(state.buffer))
-        document.querySelectorAll('[align-to-face]').forEach(
-          entity => entity.setAttribute('align-to-face', 'faceIndex', state.sector - 1)
-        )
-      })
+      subscribe(this.simUpdate.bind(this))
     })
+
+    // Dispatch the text command to the simulation
+    el.addEventListener('inputSubmitted', (e) => {
+      dispatch(e.detail)
+    })
+  },
+
+  simUpdate(state) {
+    this.el.emit('simUpdate', state, true)
+    document.querySelectorAll('[align-to-face]').forEach(
+      entity => entity.setAttribute('align-to-face', 'faceIndex', state.sector - 1)
+    )
   },
 })
 
