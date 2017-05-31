@@ -1,4 +1,4 @@
-<a-scene vr-mode-ui="enabled: false" stats="false">
+<a-scene vr-mode-ui="enabled: false" stats="false" game>
   <a-sky color="#454545"></a-sky>
   <a-dodecahedron
     id="world"
@@ -6,14 +6,10 @@
     material="flatShading: true;"
     face-normals="visualize: false;"
   >
-    <a-entity align-to-face="
-                selector: #world;
-                distance: 0.8;
-                facingTarget: false;">
+    <a-entity current-sector-observer rotate-to-face="selector: #world; index: 0">
       <a-entity id="terminal"
-                game
-                terminal="showInputElement: false"
-                position="0 0.25 0"
+                terminal
+                position="0 0.25 0.8"
                 text="
                   color: #C2FFC5;
                   baseline: top;
@@ -24,9 +20,11 @@
       </a-entity>
     </a-entity>
   </a-dodecahedron>
-  <a-camera
-    align-to-face="selector: #world; facingTarget: false;"
-    fov="7"
-    user-height="0"
-  ></a-camera>
+  <a-entity current-sector-observer rotate-to-face="selector: #world; index: 0; animated: true; duration: 750">
+    <a-camera fov="15"
+      user-height="0"
+      position="0 0 5"
+      look-controls-enabled="false"
+      wasd-controls-enabled="false"></a-camera>
+  </a-entity>
 </a-scene>

@@ -4,20 +4,19 @@
 import { registerComponent } from 'aframe'
 
 const prompt = '> '
-const bufferTextFromState = state => state.buffer.reduce((result, entry) => `${entry}${result.length > 0 ? '\n\n' : ''}${result}`, '')
+const bufferTextFromState = state => state.buffer.reduce(
+  (result, entry) => `${entry}${result.length > 0 ? '\n\n' : ''}${result}`,
+  ''
+)
 
 registerComponent('terminal', {
-  dependencies: ['game', 'text'],
-  schema: { showInputElement: { default: true } },
+  dependencies: ['text'],
+  schema: { showInputElement: { default: false } },
 
   init() {
     this.createInputElement()
     this.lastBufferText = ''
-    this.el.addEventListener('simUpdate', (e) => {
-      const state = e.detail
-      this.lastBufferText = bufferTextFromState(state)
-      this.updateText()
-    })
+    this.el.sceneEl.addEventListener('gameUpdate', (e) => this.gameUpdate(e.detail))
   },
 
   update(oldData) {
@@ -27,7 +26,14 @@ registerComponent('terminal', {
     }
   },
 
+  gameUpdate(newState) {
+    this.lastBufferText = bufferTextFromState(newState)
+    this.updateText()
+  },
+
   tick() {
+    // The input element should basically always have focus. Just enforce it.
+    // Should this be behind a current focus check?
     this.inputEl.focus()
   },
 
@@ -41,17 +47,15 @@ registerComponent('terminal', {
   },
 
   createInputElement() {
-    if (this.inputEl) {
-      return
-    }
+    if (this.inputEl) { return }
 
     const inputEl = document.createElement('input')
     inputEl.style.position = 'fixed'
     inputEl.style.bottom = '8vh'
     inputEl.style.transform = 'translateX(-50%)'
     inputEl.style.tabIndex = 0
-    inputEl.addEventListener('input', this.onInputChanged.bind(this))
-    inputEl.addEventListener('keydown', this.onInputKeyDown.bind(this))
+    inputEl.addEventListener('input', this.onInputElementChanged.bind(this))
+    inputEl.addEventListener('keydown', this.onInputElementKeyDown.bind(this))
     document.body.appendChild(inputEl)
     inputEl.focus()
     this.inputEl = inputEl
@@ -64,11 +68,11 @@ registerComponent('terminal', {
     }
   },
 
-  onInputChanged() {
+  onInputElementChanged() {
     this.updateText()
   },
 
-  onInputKeyDown(e) {
+  onInputElementKeyDown(e) {
     let handled = false
 
     if (e.key === 'Tab') {
@@ -76,6 +80,7 @@ registerComponent('terminal', {
       handled = true
     } else if (e.key === 'Enter') {
       this.el.emit('inputSubmitted', e.target.value, true)
+      this.el.sceneEl.systems.game.dispatch(e.target.value)
       e.target.value = ''
       this.updateText()
       handled = true

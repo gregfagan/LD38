@@ -1,63 +1,31 @@
-import { registerComponent } from 'aframe'
+import { registerSystem } from 'aframe'
 import dispatcher from '../../game'
 
-registerComponent('game', {
-  dependencies: ['text'],
+// Creates and runs the game session, offers access to its dispatch function.
+
+registerSystem('game', {
+  dependencies: [],
   schema: {},
 
   init() {
+    // Create a game session by invoking the dispatcher
     const { subscribe, dispatch } = dispatcher()
+
+    // Components can access the dispatch function to send a line of input
+    // to the game.
     this.dispatch = dispatch
-    const el = this.el
-    // Wait until the font is loaded to start, otherwise text won't update properly.
-    el.addEventListener('textfontset', () => {
-      subscribe(this.simUpdate.bind(this))
-    })
 
-    // Dispatch the text command to the simulation
-    el.addEventListener('inputSubmitted', (e) => {
-      dispatch(e.detail)
-    })
-  },
-
-  simUpdate(state) {
-    this.el.emit('simUpdate', state, true)
-    document.querySelectorAll('[align-to-face]').forEach(
-      entity => entity.setAttribute('align-to-face', 'faceIndex', state.sector - 1)
-    )
-  },
+    // Before starting the game, we want to make sure the terminal element's
+    // text component has finished loading its font.
+    const el = document.querySelector('[terminal]')
+    if (el) {
+      el.addEventListener('textfontset', () => {
+        // Start the game by subscribing to state changes, and when it does,
+        // emit a `gameUpdate` event on the scene.
+        subscribe((newState) => this.sceneEl.emit('gameUpdate', newState))
+      })
+    } else {
+      console.error('No terminal found. Cannot start game.')
+    }
+  }
 })
-
-// import Music from './Music'
-// import getColors from '../colors'
-//
-// import track from '../audio/music.m4a'
-//
-// import { current, getItem } from '@util'
-// import corruption from '@util/corruption'
-//
-// const bufferText = buffer => buffer.reduce((result, entry) => `${entry}${result.length > 0 ? '\n\n' : ''}${result}`, '')
-// const listening = state => getItem(state, 'HEADPHONES').modifiers.listening
-//
-// export default ({ dispatch, ...state }) => {
-//   const sector = current(state)
-//   const { textColor, backgroundColor } = getColors(sector.id, state)
-//   return (
-//     <div>
-//       <World currentSector={sector.idx - 1}
-//              terminalText={bufferText(state.buffer)}
-//              textColor={textColor}
-//              backgroundColor={backgroundColor}
-//              dispatch={dispatch}>
-//          {
-//            Object.values(state.sectors)
-//                  .map(s => <Sector key={s.id}
-//                                    {...getColors(s.id, state)}
-//                                    text={corruption(s.background, state)} />)
-//          }
-//
-//       </World>
-//       <Music playing={listening(state)} src={track} />
-//     </div>
-//   )
-// }
