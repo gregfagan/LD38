@@ -5,18 +5,16 @@ registerComponent('current-sector-observer', {
   schema: {},
 
   init() {
-    const el = this.el
-    el.sceneEl.addEventListener('gameUpdate', (e) => {
-      const sectorIdx = e.detail.sector - 1
-      // Find out where we're headed
-      // const destEl = document.createElement('a-entity')
-      el.setAttribute('rotate-to-face', { index: sectorIdx })
-      // destEl.addEventListener('loaded', () => {
-        // const rotation = destEl.object3D.rotation
-        // const normal = destEl.components['align-to-face'].normals[sectorIdx]
-        // console.log('cso', rotation, normal)
-      // })
-      // el.sceneEl.appendChild(destEl)
-    })
+    this.onSectorChange = this.onSectorChange.bind(this)
+    this.el.sceneEl.addEventListener('sectorchange', this.onSectorChange)
   },
+
+  remove() {
+    this.el.sceneEl.removeEventListener('sectorchange', this.onSectorChange)
+  },
+
+  onSectorChange(e) {
+    const sectorIdx = e.detail.index
+    this.el.setAttribute('rotate-to-face', { index: sectorIdx })
+  }
 })

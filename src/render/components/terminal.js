@@ -14,9 +14,10 @@ registerComponent('terminal', {
   schema: { showInputElement: { default: false } },
 
   init() {
+    this.onGameUpdate = this.onGameUpdate.bind(this)
     this.createInputElement()
     this.lastBufferText = ''
-    this.el.sceneEl.addEventListener('gameUpdate', e => this.gameUpdate(e.detail))
+    this.el.sceneEl.addEventListener('gameUpdate', this.onGameUpdate)
   },
 
   update(oldData) {
@@ -26,8 +27,8 @@ registerComponent('terminal', {
     }
   },
 
-  gameUpdate(newState) {
-    this.lastBufferText = bufferTextFromState(newState)
+  onGameUpdate(e) {
+    this.lastBufferText = bufferTextFromState(e.detail.state)
     this.updateText()
   },
 

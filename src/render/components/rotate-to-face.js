@@ -79,9 +79,9 @@ registerComponent('rotate-to-face', {
   },
 
   rotate() {
-    const { el, quaternions, previousIndex, lastRotationBegan, target } = this
+    const { el, data, quaternions, previousIndex, lastRotationBegan, target } = this
     const { time } = el.sceneEl
-    const { index, animated, duration } = this.data
+    const { index, animated, duration } = data
 
     if (!target || !quaternions || index > quaternions.length) {
       warn('insufficient parameters to rotate')

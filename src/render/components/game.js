@@ -19,11 +19,17 @@ registerSystem('game', {
     // text component has finished loading its font.
     const el = document.querySelector('[terminal]')
     if (el) {
-      el.addEventListener('textfontset', () => {
-        // Start the game by subscribing to state changes, and when it does,
-        // emit a `gameUpdate` event on the scene.
-        subscribe((newState) => this.sceneEl.emit('gameUpdate', newState))
-      })
+      el.addEventListener('textfontset', (() => {
+        let oldState
+        return () => {
+          // Start the game by subscribing to state changes, and when it does,
+          // emit a `gameUpdate` event on the scene.
+          subscribe((state) => {
+            this.sceneEl.emit('gameUpdate', { oldState, state })
+            oldState = state
+          })
+        }
+      })())
     } else {
       console.error('No terminal found. Cannot start game.')
     }

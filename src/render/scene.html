@@ -1,5 +1,6 @@
 <a-scene
   game
+  sector
   stats
   stats-fps-only
   vr-mode-ui="enabled: false"
@@ -31,7 +32,12 @@
     current-sector-observer
     rotate-to-face="selector: #world; index: 0; animated: true; duration: 2500"
   >
-    <a-camera fov="15"
+    <a-camera
+      zoom-on-sector-change="
+        distance: 10;
+        duration: 1250;
+      "
+      fov="15"
       user-height="0"
       position="0 0 5"
       look-controls-enabled="false"
