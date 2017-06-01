@@ -16,7 +16,7 @@ registerComponent('terminal', {
   init() {
     this.createInputElement()
     this.lastBufferText = ''
-    this.el.sceneEl.addEventListener('gameUpdate', (e) => this.gameUpdate(e.detail))
+    this.el.sceneEl.addEventListener('gameUpdate', e => this.gameUpdate(e.detail))
   },
 
   update(oldData) {
