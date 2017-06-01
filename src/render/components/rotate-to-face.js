@@ -1,7 +1,10 @@
 import { THREE, registerComponent, utils } from 'aframe'
+import { easeBackInOut } from 'd3-ease'
 
 const { debug } = utils
 const warn = debug('techoglyph:align-to-face:warn')
+
+const ease = easeBackInOut.overshoot(1.2)
 
 registerComponent('rotate-to-face', {
   schema: {
@@ -40,9 +43,12 @@ registerComponent('rotate-to-face', {
   },
 
   tick() {
-    const { previousIndex } = this
-    const { animated, index } = this.data
-    if (animated && previousIndex !== index) {
+    const { el, previousIndex, lastRotationBegan } = this
+    const { animated, index, duration } = this.data
+    const animationInProgress = animated
+      && previousIndex !== index
+      && (el.sceneEl.time - duration) <= lastRotationBegan
+    if (animationInProgress) {
       this.rotate()
     }
   },
@@ -85,7 +91,11 @@ registerComponent('rotate-to-face', {
     // Reorient the entity towards the target
     if (animated) {
       const t = Math.min(1, (time - lastRotationBegan) / duration)
-      THREE.Quaternion.slerp(quaternions[previousIndex], quaternions[index], el.object3D.quaternion, t)
+      THREE.Quaternion.slerp(
+        quaternions[previousIndex],
+        quaternions[index],
+        el.object3D.quaternion,
+        ease(t))
     } else {
       el.object3D.quaternion.copy(quaternions[index])
     }
