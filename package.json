@@ -2,9 +2,9 @@
   "name": "ld38",
   "version": "0.0.1",
   "description": "Ludum Dare Jam 38 game",
-  "homepage": "https://github.com/gregfagan/ld38#readme",
+  "homepage": "https://gregfagan.com/technoglyph",
   "bugs": {
-    "url": "https://github.com/gregfagan/ld38/issues"
+    "url": "https://github.com/gregfagan/technoglyph/issues"
   },
   "license": "ISC",
   "contributors": [
@@ -18,13 +18,13 @@
   "main": "src/index.js",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/gregfagan/ld38.git"
+    "url": "git+https://github.com/gregfagan/technoglyph.git"
   },
   "scripts": {
     "start": "webpack-dev-server",
-    "build": "NODE_ENV=production webpack -p",
+    "build": "cross-env-shell NODE_ENV=production webpack -p",
     "publish": "node publish.js",
-    "dev": "TARGET=node webpack -w",
+    "dev": "cross-env-shell TARGET=node webpack -w",
     "lint": "eslint src"
   },
   "dependencies": {
@@ -45,6 +45,7 @@
     "babel-preset-react": "^6.24.1",
     "babel-register": "^6.24.1",
     "babel-watch": "^2.0.6",
+    "cross-env": "^5.2.0",
     "eslint": "^3.17.1",
     "eslint-config-airbnb": "^14.1.0",
     "eslint-plugin-import": "^2.2.0",

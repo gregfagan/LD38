@@ -27,7 +27,7 @@ const config = {
         options: {
           helperDirs: [`${__dirname}/src/util/helpers`]
         }
-      },
+        },
       {
         test: /.m4a$/,
         include: path.resolve(__dirname, 'src'),
@@ -37,7 +37,7 @@ const config = {
         }
       }
     ]
-  },
+        },
   resolve: {
     extensions: ['.js'],
     alias: {
@@ -49,7 +49,7 @@ const config = {
       '@useables': `${__dirname}/src/useables`,
       '@inputtables': `${__dirname}/src/inputtables`
     }
-  },
+    },
   devtool: dev ? 'source-map' : ''
 }
 
@@ -60,11 +60,15 @@ const webConfig = {
   output: {
     ...config.output,
     filename: '[name].[chunkhash].js',
-    publicPath: '/LD38/',
+    publicPath: './',
+  },
+  devServer: {
+    // makes app available at the dev server root (http://localhost:8080/)
+    contentBase: path.join(__dirname, 'build'),
   },
   plugins: [
     new HtmlWebpackPlugin({
-      title: 'LDJAM 38',
+      title: 'technoglyph',
       template: 'template.ejs',
     }),
     new webpack.optimize.CommonsChunkPlugin({
